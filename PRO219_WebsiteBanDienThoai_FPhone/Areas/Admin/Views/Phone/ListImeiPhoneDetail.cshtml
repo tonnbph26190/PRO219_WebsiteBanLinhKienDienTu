@@ -1,0 +1,91 @@
+﻿@using PRO219_WebsiteBanDienThoai_FPhone.ViewModel
+@using AppData.Models
+@model ImeiPhoneViewModel
+
+@{
+    ViewData["Title"] = "Danh sách imei";
+    int stt = 0;
+}
+
+<h1>Danh sách Imei</h1>
+
+<div>
+    <a asp-area="Admin" asp-action="CreateImei" asp-controller="Phone" asp-route-IdPhoneDetail="@Model.IdPhoneDetail" class="nav-link">
+        <span class="title">Thêm mới imei</span>
+        <span class="icon-holder">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+            </svg>
+        </span>
+    </a>
+    <br />
+    <form method="post" asp-action="Import" enctype="multipart/form-data">
+        <input type="file" name="files" />
+        <input type="submit" value="Import" />
+    </form>
+    <br />
+    <button type="button" class="btn btn-info" href="@Url.Action("Export", "Phone")">Xuất file Excel</button>
+    
+ @*   @if (ViewBag.Imei != null)
+    {
+        <b>Danh sách Không hợp lệ:</b>
+        foreach (var item in ViewBag.Imei)
+        {
+            <a>@item</a>
+            <br />
+        }
+    }*@
+</div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Imei
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.imeis)
+        {
+            stt = stt + 1;
+            <tr>
+                <td>
+                    @stt
+                </td>
+                <td>
+                    @Model.PhoneDetailName
+                </td>
+                <td>
+                    @if (item.Status == 1)
+                    {
+                        <p>Còn hàng</p>
+                    }
+                    else
+                    {
+                        <p>Đã bán</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameImei)
+                </td>
+ 
+            </tr>
+        }
+    </tbody>
+</table>

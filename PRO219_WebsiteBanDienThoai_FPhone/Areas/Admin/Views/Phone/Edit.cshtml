@@ -1,0 +1,62 @@
+﻿@model   PRO219_WebsiteBanDienThoai_FPhone.ViewModel.AdPhoneDetailViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Chỉnh sửa thông tin nhóm sản phẩm</h1>
+<br/>
+<h4>Nhóm sản phẩm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="@Model.PhoneDetail.Id"/>
+            <div class="form-group">
+                <label  class="control-label">Tên nhóm sản phẩm</label>
+                <input value="@Model.PhoneDetail.PhoneName" asp-for="@Model.PhoneDetail.PhoneName" class="form-control" />
+                <span asp-validation-for="@Model.PhoneDetail.PhoneName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ảnh</label><br/>
+                <img id="imagePreview" class="my-2" src="@Model.PhoneDetail.Image" width="200px" /> <br/>
+                <input hidden asp-for="PhoneDetail.Image"/>
+                <input type="file" id="fileInput" name="file" />
+                <span asp-validation-for="@Model.PhoneDetail.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <labe class="control-label">Nhà sản xuất</labe>
+                @Html.DropDownListFor(model => model.PhoneDetail.IdProductionCompany, new SelectList(Model.ListCompany, "Id", "Name"), "--- Lựa chọn ---", new { @class = "form-control" })
+                <span asp-validation-for="PhoneDetail.IdProductionCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Mô tả</label>
+                <input value="@Model.PhoneDetail.Description" asp-for="@Model.PhoneDetail.Description" class="form-control" />
+                <span asp-validation-for="@Model.PhoneDetail.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Thời hạn bảo hành</label>
+                @Html.DropDownListFor(model => model.PhoneDetail.IdWarranty, new SelectList(Model.ListWarranty, "Id", "TimeWarranty"), "--- Lựa chọn ---", new { @class = "form-control"})
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/JAdPhone.js"></script>
+<div>
+    <a asp-action="Index">@("<< ")Trở lại</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#fileInput').change(function () {
+            JAdPhone.previewImages();
+        });
+    });
+
+</script>

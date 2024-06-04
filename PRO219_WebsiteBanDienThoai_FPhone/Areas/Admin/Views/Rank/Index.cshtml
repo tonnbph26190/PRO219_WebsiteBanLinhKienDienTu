@@ -1,0 +1,130 @@
+﻿@model IEnumerable<AppData.Models.Rank>
+
+@{
+    var index = 1;
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    
+}
+<div class="" style="background-color:aliceblue">
+<div class="center">
+    <r >BẢNG RANKING MEMBER</r>
+</div>
+
+<div class="d-flex align-items-center" >
+    <div class="container border border-5">
+        <div class="d-flex align-items-center" style="color:slategray">
+            @foreach (var item in Model)
+            {
+                
+                @if (item.STT == 2 && item.Status == 1)
+                {
+                    <div class="card mx-5" style="width: 18rem ; color = #800000">
+                            
+                            <img src="~/images/top22.png" width="260px" height="370px" />
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Username</h5>
+                            <p class="card-text">Point : @item.Point</p>
+                           
+                                <p class="card-text">Rank : @item.Ranking</p>
+                            <a href="#" class="btn btn-primary">TOP 2</a>
+                        </div>
+                    </div>
+                }    
+
+            }
+             @foreach (var item in Model)
+            {
+                    @if (item.STT == 1 && item.Status == 1)
+                {
+                   
+                    <div class="card mx-5" style="width: 18rem; color = #000000">
+               
+                            <img src="~/images/Top111.png" width="260px" height="370px" />
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Username</h5>
+                            <p class="card-text">Point : @item.Point</p>
+                         
+                                <p class="card-text">Rank : @item.Ranking</p>
+                            <a href="#" class="btn btn-primary">TOP 1</a>
+                        </div>
+                    </div>
+                }
+            }
+            @foreach (var item in Model)
+            {
+                    @if (item.STT == 3 && item.Status == 1)
+                {
+                    <div class="card mx-5" style="width: 18rem; color = #000000">
+                        <img src="~/images/Top33.png" width="260px" height="370px" />
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Username</h5>
+                            <p class="card-text">Point : @item.Point</p>
+                          
+                                <p class="card-text">Rank : @item.Ranking</p>
+                            <a href="#" class="btn btn-primary">TOP 3</a>
+                        </div>
+                    </div>
+                }
+            }
+ 
+   
+    </div>
+    </div>
+</div>
+<h2>Bảng chi tiết</h2>
+
+<div class="table-responsive">
+    <table class="table table-hover e-commerce-table border" >
+        <thead class="thead-light">
+            <tr>
+                <th>STT</th>
+                <th>Tên người dùng</th>
+                <th>Điểm</th>
+     
+                <th>Ranking</th>
+                <th>Chính sách</th>
+                <th>Quyền lợi</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+
+                            <div class="badge badge-success badge-diamond m-r-10"></div>
+                            <div>@Html.DisplayFor(modelItem => item.STT)</div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="d-flex align-items-center">
+                                @Html.DisplayFor(modelItem => item.Username)          
+                        </div>
+                    </td>
+                    <td>@item.Point</td>
+
+        
+                    <td>
+                        <div class="d-flex align-items-center">
+                          
+                            <div class="badge badge-success badge-diamond m-r-10"></div>
+                            <div>@Html.DisplayFor(modelItem => item.Ranking)</div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Policies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Benefits)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+<script src="~/js/adminchart.js"></script>

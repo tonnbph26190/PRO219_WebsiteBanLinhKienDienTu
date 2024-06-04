@@ -1,0 +1,415 @@
+﻿@using AppData.FPhoneDbContexts;
+@using AppData.Models;
+@using PRO219_WebsiteBanDienThoai_FPhone.ViewModel
+@model VwProductDetailViewModel;
+@{
+    ViewData["Title"] = "PhoneDetail";
+    var idAccount = Model.IdAccount;
+    var idPhone = Model.IdPhone;
+    int index = 0;
+    FPhoneDbContext dbContext = new FPhoneDbContext();
+}
+<!-- Thêm liên kết đến thư viện Toastr -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<style>
+    .highlighted-name {
+        color: #ff6600; /* You can change the color code to your preferred color */
+        font-weight: bold; /* Optional: Make the text bold for emphasis */
+    }
+    .fs-5 {
+        font-size: 2rem!important;
+    }
+    .phone-hover:hover {
+        background-color: #FFFFCC;
+    }
+
+    /*  .selected {
+                background-color: #33FF33;
+                border-radius: 2px;
+            }
+        */
+    .form-control {
+        font-size: 1.5rem
+    }
+    .selected {
+        background-color: #33FF33;
+        border-radius: 2px;
+        border: 1px solid #33FF33; /* Add this line to set the border color to green */
+    }
+
+    #ramButtons {
+        width: 500px;
+        height: 120px;
+        gap: 5px;
+    }
+
+    .btn {
+        --bs-btn-font-size: 1.5rem;
+    }
+
+
+    .content-item {
+        padding: 30px 0;
+        background-color: #FFFFFF;
+    }
+
+        .content-item.grey {
+            background-color: #F0F0F0;
+            padding: 50px 0;
+            height: 100%;
+        }
+
+        .content-item h2 {
+            font-weight: 700;
+            font-size: 35px;
+            line-height: 45px;
+            text-transform: uppercase;
+            margin: 20px 0;
+        }
+
+        .content-item h3 {
+            font-weight: 400;
+            font-size: 20px;
+            color: #555555;
+            margin: 10px 0 15px;
+            padding: 0;
+        }
+
+    .content-headline {
+        height: 1px;
+        text-align: center;
+        margin: 20px 0 70px;
+    }
+
+        .content-headline h2 {
+            background-color: #FFFFFF;
+            display: inline-block;
+            margin: -20px auto 0;
+            padding: 0 20px;
+        }
+
+    .grey .content-headline h2 {
+        background-color: #F0F0F0;
+    }
+
+    .content-headline h3 {
+        font-size: 14px;
+        color: #AAAAAA;
+        display: block;
+    }
+
+
+    #comments {
+        box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+        background-color: #FFFFFF;
+    }
+
+        #comments form {
+            margin-bottom: 30px;
+        }
+
+        #comments .btn {
+            margin-top: 7px;
+        }
+
+        #comments form fieldset {
+            clear: both;
+        }
+
+        #comments form textarea {
+            height: 100px;
+        }
+
+        #comments .media {
+            border-top: 1px dashed #DDDDDD;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+            #comments .media > .pull-left {
+                margin-right: 20px;
+            }
+
+            #comments .media img {
+                max-width: 100px;
+            }
+
+            #comments .media h4 {
+                margin: 0 0 10px;
+            }
+
+                #comments .media h4 span {
+                    font-size: 14px;
+                    float: right;
+                    color: #999999;
+                }
+
+            #comments .media p {
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+
+        #comments .media-detail {
+            margin: 0;
+        }
+
+            #comments .media-detail li {
+                color: #AAAAAA;
+                font-size: 12px;
+                padding-right: 10px;
+                font-weight: 600;
+                display: inline-block;
+            }
+
+            #comments .media-detail a:hover {
+                text-decoration: underline;
+            }
+
+            #comments .media-detail li:last-child {
+                padding-right: 0;
+            }
+
+            #comments .media-detail li i {
+                color: #666666;
+                font-size: 15px;
+                margin-right: 10px;
+            }
+
+</style>
+<script>
+    var idAccount = '@idAccount';
+    var idPhone = '@idPhone';
+
+</script>
+
+<section class="section product-details__section container">
+    <div class="product-detail__container">
+        <div class="product-detail__left">
+            <div class="details__container--left">
+                <div class="product__pictures">
+                    @foreach (var item in Model.listImageByIdPhone)
+                    {
+                        if (index>=4)
+                        {
+                            <a class="fancybox-thumb hide" href="@item.Image" data-fancybox="gallery" data-src="@item.Image">
+                                <div class="pictures__container">
+                                    <img class="picture" src="@item.Image" id="pic1"/>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="fancybox-thumb" href="@item.Image" data-fancybox="gallery" data-src="@item.Image">
+                                <div class="pictures__container">
+                                    <img class="picture" src="@item.Image" id="pic1"/>
+                                </div>
+                            </a>
+                        }
+                       
+                        index++;
+                    }
+
+                </div>
+                <div class="product__picture" id="product__picture">
+                    <!-- <div class="rect" id="rect"></div> -->
+                    <a href="@Model.Image" class="fancybox-thumb first-item" data-fancybox data-fancybox="gallery" data-caption="Single image">
+                        <img src="@Model.Image" />
+                    </a>
+                   @*  <a class="first-item fancybox-thumb" href="@Model.Image" data-type="image" data-fancybox="gallery" data-src="@Model.Image">
+                        <div class="picture__container">
+                            <img src="@Model.Image" id="pic"/>
+                        </div>
+                    </a> *@
+                </div>
+                <div class="zoom" id="zoom"></div>
+            </div>
+            <form  id="AddToCart" method="get">
+                <input asp-for="IdPhoneDetail" hidden=""/>
+                <div class="product-details__btn">
+                    <button onclick="JPhoneDetail.AddToCard(event)" type="submit" class="add btn btn-block" id="addToCart" name="addToCart">
+                        <span>
+                            <svg>
+                                <use xlink:href="/images/sprite.svg#icon-cart-plus"></use>
+                            </svg>
+                        </span>
+                        Thêm vào giỏ hàng
+                    </button>
+                </div>
+            </form>
+
+            <form action="@Url.Action("Additem", "FavoritePhone", new { id = '1' })" method="get">
+                <div class="product-details__btn">
+                    <button type="submit" class="add btn btn-block" name="Additem">
+                        <span>
+                            <svg>
+                                <use xlink:href="/images/sprite.svg#icon-cart-plus"></use>
+                            </svg>
+                        </span>
+                        Yêu thích
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="product-detail__right">
+            <div class="product-detail__content">
+                <h3 id="phoneName">@Model.Phone.PhoneName</h3>
+                <strong style="color: red" id="notExits">Hết hàng</strong>
+                <div class="price">
+                    <span id="phonePrice" style="color: red;font-size: 20px"></span>
+                </div>
+                <div class="product__review">
+                    <div class="rating">
+                        <svg>
+                            <use xlink:href="/images/sprite.svg#icon-star-full"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="/images/sprite.svg#icon-star-full"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="/images/sprite.svg#icon-star-full"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="/images/sprite.svg#icon-star-full"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="/images/sprite.svg#icon-star-empty"></use>
+                        </svg>
+                    </div>
+                    <a href="#" class="rating__quatity">3 reviews</a>
+                </div>
+                <p>
+                    @* @item.Description *@
+                </p>
+                <div class="product__info-container">
+                    <ul class="product__info">
+
+                        <li class=" row" id="listPhone">
+
+                        </li>
+                        <li class="row" @* id="ramButtons" *@>
+                            @foreach (var item in Model.LstRam)
+                            {
+                                <a value="@item.Id" id="@item.Id" onclick="JPhoneDetail.selectPhoneDetail('@item.Id','@Model.IdPhone')" class="btn border col btnRam">@item.Name</a>
+                            }
+                        </li>
+                        <li class="row" id="colorList"></li>
+
+                        <li>
+                            <span>Số lượng kho:</span>
+                            <a href="#" class="in-stock"></a>
+                        </li>
+
+                        <!-- Button trigger modal -->
+                        <button  type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" id="ShowDetaild">
+                            Xem thông tin chi tiết <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="10" height="10"><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"></path></svg>
+                        </button>
+                        <!-- Modal -->
+                            <div class="modal fade showChiTiet" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<section class="content-item" id="comments">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <form id="commentForm">
+                    <h3 class="pull-left">Bình luận mới</h3>
+                    <button type="button" class="btn btn-normal pull-right btn-light" id="submit">Gửi</button>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-2 hidden-xs">
+                                <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                
+                    <h3>@(Model.ListReview.Count + " Bình luận")</h3>
+
+                    <!-- COMMENT 1 - START -->
+                    @foreach (var item in Model.ListReview)
+                    {
+                        var username = dbContext.Accounts.FirstOrDefault(p => p.Id == item.IdAccount);
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                            <div class="media-body">
+                                @if (username == null)
+                                {
+                                    <h4 class="media-heading">Ẩn danh</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="media-heading">@username.Username</h4>
+                                }
+                               
+                                <p>@item.Content</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>@item.DateTime.ToString("dd/MM/yyyy")</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Thích</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal " tabindex="-1" id="notification">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="notification-content"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        toastr.error('@TempData["SuccessMessage"]');
+    </script>
+}
+
+<script src="~/js/JPhoneDetail.js"></script>
+<script>
+    $('#notExits').hide();
+    $('#ShowDetaild').hide();
+    $('.hide').hide();
+   
+
+    $(document).ready(function() {
+        $('[data-fancybox]').fancybox({
+            thumbs: {
+                autoStart: true
+            },
+            slideShow: {
+                autoStart: true,
+                speed: 3000
+            }
+        });
+    });
+</script>

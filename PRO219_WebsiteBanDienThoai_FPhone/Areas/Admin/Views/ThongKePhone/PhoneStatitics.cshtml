@@ -1,0 +1,281 @@
+﻿@model AppData.ViewModels.ThongKe.PhoneStatitics;
+@using Microsoft.AspNetCore.Identity;
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash" style="background-color: white; ">
+            <a href="#" class="breadcrumb-item " style="text-decoration: none;"><i class="anticon anticon-home m-r-5"></i>Thống kê</a>
+            <span class="breadcrumb-item active">Tổng quan</span>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="m-b-0 text-muted">Sản phẩm bán chạy</p>
+                                <h2 class="m-b-0">
+                                    @Model.NamePhoneThangNay
+                                </h2>
+                            </div>
+              
+
+                        </div>
+                        <div class="m-t-40">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-primary badge-dot m-r-10"></span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Tháng trước</span>
+                                </div>
+                                <span class="text-dark font-weight-semibold font-size-13">@Model.NamePhoneThangTruoc</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="m-b-0 text-muted">Số lượng bán sản phẩm</p>
+                                <h2 class="m-b-0">@Model.SlBanThangNay</h2>
+                            </div>
+
+                            @if (@Model.SlBanThangNay > @Model.SlBanThangTruoc)
+                            {
+                                if (@Model.SlBanThangTruoc > 0)
+                                {
+                                    int? TileDoanhThu = ((@Model.SlBanThangNay - @Model.SlBanThangTruoc) / @Model.SlBanThangTruoc) * 100;
+                                
+                                    <span class="badge badge-pill badge-cyan font-size-12">
+                                        <i class="anticon anticon-arrow-up"></i>
+                                        <span class="font-weight-semibold m-l-5">@TileDoanhThu %</span>
+                                    </span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge badge-pill badge-cyan font-size-12">
+                                        <i class="anticon anticon-arrow-up"></i>
+                                        <span class="font-weight-semibold m-l-5">@Model.SlBanThangNay</span>
+                                    </span>
+                                }
+
+                            }
+                            else if (@Model.SlBanThangNay < @Model.SlBanThangTruoc)
+                            {
+
+                                int? TileDoanhThu = ((@Model.SlBanThangTruoc - @Model.SlBanThangNay) / @Model.SlBanThangTruoc) * 100;
+                            
+                                <span class="badge badge-pill badge-red font-size-12">
+                                    <i class="anticon anticon-arrow-down"></i>
+                                    <span class="font-weight-semibold m-l-5">@TileDoanhThu %</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-pill badge-cyan font-size-12">
+                                    <i class="anticon anticon-arrow-up"></i>
+                                    <span class="font-weight-semibold m-l-5">0 %</span>
+                                </span>
+                            }
+
+
+                        </div>
+                        <div class="m-t-40">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-success badge-dot m-r-10"></span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Tháng trước</span>
+                                </div>
+                                <span class="text-dark font-weight-semibold font-size-13">@Model.SlBanThangTruoc</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="m-b-0 text-muted">Mã màu hot</p>
+                                <h2 class="m-b-0">@Model.NameColorThangNay</h2>
+                            </div>
+                            
+                        </div>
+                        <div class="m-t-40">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-warning badge-dot m-r-10"></span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Tháng trước</span>
+                                </div>
+                                <span class="text-dark font-weight-semibold font-size-13">@Model.NameColorThangTruoc</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="m-b-0 text-muted">Số lượng màu </p>
+                                <h2 class="m-b-0">@Model.SlColorThangNay</h2>
+                            </div>
+                            @if (@Model.SlColorThangNay > @Model.SlColorThangTruoc)
+                            {
+                                if (@Model.SlColorThangTruoc > 0)
+                                {
+                                    int? TileDoanhThu = ((@Model.SlColorThangNay - @Model.SlColorThangTruoc) / @Model.SlColorThangTruoc) * 100;
+                                   
+                                    <span class="badge badge-pill badge-cyan font-size-12">
+                                        <i class="anticon anticon-arrow-up"></i>
+                                        <span class="font-weight-semibold m-l-5">@TileDoanhThu %</span>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill badge-cyan font-size-12">
+                                        <i class="anticon anticon-arrow-up"></i>
+                                        <span class="font-weight-semibold m-l-5">@Model.SlColorThangNay</span>
+                                    </span>
+                                }
+                            }
+                            else if (@Model.SlColorThangNay < @Model.SlColorThangTruoc)
+                            {
+                                int? TileDoanhThu = (@Model.SlColorThangTruoc - (@Model.SlColorThangNay) / @Model.SlColorThangTruoc) * 100;
+                               
+                                <span class="badge badge-pill badge-red font-size-12">
+                                    <i class="anticon anticon-arrow-down"></i>
+                                    <span class="font-weight-semibold m-l-5">@TileDoanhThu %</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-pill badge-red font-size-12">
+                                    <i class="anticon anticon-arrow-up"></i>
+                                    <span class="font-weight-semibold m-l-5">0 %</span>
+                                </span>
+                            }
+                        </div>
+                        <div class="m-t-40">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-warning badge-dot m-r-10"></span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Tháng trước</span>
+
+                                </div>
+                                <span class="text-dark font-weight-semibold font-size-13"> @Model.SlColorThangTruoc đơn hàng</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Phân khúc sản phẩm khách hàng</h5>
+
+                    <div class="dropdown dropdown-animated scale-left">
+                        <a class="text-gray font-size-18" href="javascript:void(0);" data-toggle="dropdown">
+                            <i class="anticon anticon-ellipsis"></i>
+                        </a>
+                        <div class="dropdown-menu">
+
+                            <button class="dropdown-item" type="button">
+                                <i class="anticon anticon-download"></i>
+                               
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t-50">
+                    <div id="detailContent3" style="min-width: 75%; height: 350px; border: 1px solid #ccc"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h5>Thời gian khách hàng mua hàng trong ngày</h5>
+                <div id="detailContent2" style="min-width: 100%; height: 400px; border: 1px solid #ccc" ;marin-top:-20> </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+
+    @section scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="~/Admin/moment/moment.min.js"></script>
+
+        <script src="~/js/JChart.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                setTimeout(function () {
+                    JChart2.char1();
+                }, 1000);
+                JChart2.char2();
+            });
+        </script>
+       
+
+    }
+
+
