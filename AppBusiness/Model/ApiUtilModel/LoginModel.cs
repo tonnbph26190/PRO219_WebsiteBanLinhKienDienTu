@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AppData.Models
+namespace AppBusiness.Model.ApiUtilModel
 {
     public class LoginModel
     {
@@ -9,7 +9,7 @@ namespace AppData.Models
         //    public string Email { get; set; }     
         [Required]
         public string UserName { get; set; } = null!;
-        [PasswordPropertyText,Required]
+        [PasswordPropertyText, Required]
         public string Password { get; set; } = null!;
 
     }

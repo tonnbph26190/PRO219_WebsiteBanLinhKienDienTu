@@ -52,7 +52,7 @@ public class FPhoneDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<SellMonthlys> SellMonthlys { get; set; }
     public DbSet<SellYearlys> SellYearlys { get; set; }
     public DbSet<SellDailys> SellDaily { get; set; }
-    public DbSet<SalePhoneDetaild> SalePhoneDetailds { get; set; }
+    public DbSet<SaleDetaild> SalePhoneDetailds { get; set; }
     public DbSet<SellDailys> SellDailys { get; set; }
     public DbSet<ApplicationUser> AspNetUsers { get; set; }
     public DbSet<VW_Phone> VW_Phone { get; set; }

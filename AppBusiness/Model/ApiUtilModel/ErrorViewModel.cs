@@ -1,4 +1,4 @@
-namespace AppData.Models
+namespace AppBusiness.Model.ApiUtilModel
 {
     public class ErrorViewModel
     {
