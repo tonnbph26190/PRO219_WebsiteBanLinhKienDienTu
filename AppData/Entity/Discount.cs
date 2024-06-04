@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AppData.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace AppData.Models
 {
-    public class Discount
+    public class Discount:BaseEntity
     {
         public Guid Id { get; set; }
         [StringLength(25,MinimumLength =2 , ErrorMessage = "Tên voucher phải từ 2 -25 kí tự")]

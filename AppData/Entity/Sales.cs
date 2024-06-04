@@ -11,9 +11,9 @@ namespace AppData.Models
         public Guid Id { get; set; }
         public decimal ReducedAmount { get; set; }
 
-        public DateTime? TimeForm { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime? TimeTo { get; set; }
+        public DateTime? ToDate{ get; set; }
 
         public string? Note { get; set; }
 

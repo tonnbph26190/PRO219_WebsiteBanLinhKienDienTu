@@ -1,6 +1,8 @@
-﻿namespace AppData.Models
+﻿using AppData.Entity;
+
+namespace AppData.Models
 {
-    public class Review
+    public class Review:BaseEntity
     {
         public Guid Id { get; set; }
 

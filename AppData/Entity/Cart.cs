@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AppData.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace AppData.Models
 {
-    public class Cart
+    public class Cart:BaseEntity
     {
-      
         public Guid? IdAccount { get; set; }
-
+        public string UserName { get; set; }
         public string? Description { get; set; }
-
         public Account Accounts { get; set; }
-
     }
 }

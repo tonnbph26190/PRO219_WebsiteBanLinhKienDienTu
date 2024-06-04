@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppData.Entity;
+using AppData.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace AppData.Models
 {
-    public class Account
+    public class Account:BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
+        public string Code { get; set; }
 
         public string Username { get; set; }
 
@@ -22,6 +25,7 @@ namespace AppData.Models
 
         public string? ImageUrl { get; set; }
 
+        public UserTypeEnum UserTypeEnum { get; set; }
         public int Status { get; set; }
 
         public int? Points { get; set; }
