@@ -11,7 +11,7 @@ namespace AppData.IRepositories
     {
         Task<bool> Add(Guid idsale, Guid idphonedetaild);
         Task<bool> Update(Guid id, Guid idsale, Guid idphonedetaild);
-        Task<List<SalePhoneDetaild>> GetAll();
+        Task<List<SaleDetaild>> GetAll();
         Task Delete(Guid id);
     }
 }

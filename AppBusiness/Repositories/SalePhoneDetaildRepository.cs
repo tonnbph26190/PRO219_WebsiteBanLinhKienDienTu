@@ -22,7 +22,7 @@ namespace AppData.Repositories
         {
             try
             {
-                SalePhoneDetaild salePhoneDt = new SalePhoneDetaild()
+                SaleDetaild salePhoneDt = new SaleDetaild()
                 {
                     Id = Guid.NewGuid(),
                     IdSales = idsale,
@@ -44,7 +44,7 @@ namespace AppData.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<List<SalePhoneDetaild>> GetAll()
+        public async Task<List<SaleDetaild>> GetAll()
         {
             return await _dbcontext.SalePhoneDetailds.ToListAsync();
         }
