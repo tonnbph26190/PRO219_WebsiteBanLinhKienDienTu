@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppData.IRepositories
+namespace AppBusiness.Model.QueryModel
 {
-    public interface IVW_Phone
+    public class VirtualItemQueryModel
     {
-
     }
 }
