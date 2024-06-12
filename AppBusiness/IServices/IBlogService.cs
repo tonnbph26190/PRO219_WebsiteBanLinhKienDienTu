@@ -10,11 +10,11 @@ namespace AppData.IServices
 {
     public interface IBlogService
     {
-        public Blog Add(Blog obj);
-        public Blog Update(Blog obj);
-        public Blog Delete(Guid id);
-        public Blog Details(Guid id);   
-        public List<Blog> GetAll(Blog searchData,ListOptions listOptions);
+        public BlogEntity Add(BlogEntity obj);
+        public BlogEntity Update(BlogEntity obj);
+        public BlogEntity Delete(Guid id);
+        public BlogEntity Details(Guid id);   
+        public List<BlogEntity> GetAll(BlogEntity searchData,ListOptions listOptions);
             
     }
 }

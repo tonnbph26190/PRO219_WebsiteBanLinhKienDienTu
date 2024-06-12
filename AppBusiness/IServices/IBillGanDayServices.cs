@@ -13,6 +13,6 @@ namespace AppData.IServices
     public interface IBillGanDayServices
     {
       List<BillGanDay> listBillGanDayViewGroup();
-      List<Bill> BillThang();
+      List<BillEntity> BillThang();
     }
 }

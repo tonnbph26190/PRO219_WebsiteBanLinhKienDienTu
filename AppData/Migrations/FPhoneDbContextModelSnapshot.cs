@@ -22,11 +22,49 @@ namespace AppData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AppData.Models.Account", b =>
+            modelBuilder.Entity("AppData.Entity.VirtualItemObjRelationEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ObjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RelatedObj2Json")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RelatedObjJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("VirtualItem")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemObjRelationEntities");
+                });
+
+            modelBuilder.Entity("AppData.Models.AccountEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -34,6 +72,12 @@ namespace AppData.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -52,6 +96,9 @@ namespace AppData.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserTypeEnum")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,7 +108,7 @@ namespace AppData.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("AppData.Models.Address", b =>
+            modelBuilder.Entity("AppData.Models.AddressEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,78 +219,13 @@ namespace AppData.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AppData.Models.Battery", b =>
+            modelBuilder.Entity("AppData.Models.BillDetailsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Battery");
-                });
-
-            modelBuilder.Entity("AppData.Models.Bill", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BillCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("IdAccount")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusPayment")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalMoney")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("Update_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("deliveryPaymentMethod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdAccount");
-
-                    b.ToTable("Bill");
-                });
-
-            modelBuilder.Entity("AppData.Models.BillDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("BillEntityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IdBill")
@@ -252,7 +234,7 @@ namespace AppData.Migrations
                     b.Property<Guid?>("IdDiscount")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdPhoneDetail")
+                    b.Property<Guid?>("IdVirtualItem")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Imei")
@@ -275,16 +257,68 @@ namespace AppData.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BillEntityId");
+
                     b.HasIndex("IdBill");
 
                     b.HasIndex("IdDiscount");
 
-                    b.HasIndex("IdPhoneDetail");
-
                     b.ToTable("BillDetails");
                 });
 
-            modelBuilder.Entity("AppData.Models.Blog", b =>
+            modelBuilder.Entity("AppData.Models.BillEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("IdAccount")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusPayment")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("TotalMoney")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("Update_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("deliveryPaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccount");
+
+                    b.ToTable("Bill");
+                });
+
+            modelBuilder.Entity("AppData.Models.BlogEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,103 +348,82 @@ namespace AppData.Migrations
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("AppData.Models.Cart", b =>
-                {
-                    b.Property<Guid?>("IdAccount")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdAccount");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("AppData.Models.CartDetails", b =>
+            modelBuilder.Entity("AppData.Models.CartDetailsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdAccount")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdPhoneDetaild")
+                    b.Property<Guid?>("CreatedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
+                    b.Property<string>("Decription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("IdUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("IdVirtualItem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MetadataJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAccount");
-
-                    b.HasIndex("IdPhoneDetaild");
+                    b.HasIndex("CartId");
 
                     b.ToTable("CartDetails");
                 });
 
-            modelBuilder.Entity("AppData.Models.ChargingportType", b =>
+            modelBuilder.Entity("AppData.Models.CartEntity", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("IdAccount")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChargingportType");
+                    b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("AppData.Models.ChipCPUs", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChipCPUs");
-                });
-
-            modelBuilder.Entity("AppData.Models.ChipGPUs", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChipGPUs");
-                });
-
-            modelBuilder.Entity("AppData.Models.Color", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
-                });
-
-            modelBuilder.Entity("AppData.Models.Contact", b =>
+            modelBuilder.Entity("AppData.Models.ContactEntity", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
@@ -460,11 +473,17 @@ namespace AppData.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("AppData.Models.Discount", b =>
+            modelBuilder.Entity("AppData.Models.DiscountEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
@@ -475,6 +494,12 @@ namespace AppData.Migrations
                     b.Property<int?>("DieuKien")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MaVoucher")
                         .HasMaxLength(25)
@@ -491,8 +516,8 @@ namespace AppData.Migrations
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StatusVoucher")
-                        .HasColumnType("int");
+                    b.Property<string>("StatusVoucher")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TypeVoucher")
                         .IsRequired()
@@ -503,34 +528,7 @@ namespace AppData.Migrations
                     b.ToTable("Discount");
                 });
 
-            modelBuilder.Entity("AppData.Models.Imei", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdBillDetail")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdPhoneDetaild")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NameImei")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdPhoneDetaild");
-
-                    b.ToTable("Imei");
-                });
-
-            modelBuilder.Entity("AppData.Models.ListImage", b =>
+            modelBuilder.Entity("AppData.Models.ListImageEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -539,211 +537,34 @@ namespace AppData.Migrations
                     b.Property<Guid?>("IdColor")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdPhoneDetaild")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid?>("VirtualItemId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("IdPhoneDetaild");
+                    b.HasKey("Id");
 
                     b.ToTable("ListImage");
                 });
 
-            modelBuilder.Entity("AppData.Models.Material", b =>
+            modelBuilder.Entity("AppData.Models.ProductionCompanyEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Material");
-                });
-
-            modelBuilder.Entity("AppData.Models.OperatingSystems", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OperatingSystem");
-                });
-
-            modelBuilder.Entity("AppData.Models.Phone", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IdProductionCompany")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdWarranty")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdProductionCompany");
-
-                    b.HasIndex("IdWarranty");
-
-                    b.ToTable("Phones");
-                });
-
-            modelBuilder.Entity("AppData.Models.PhoneDetaild", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FrontCamera")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IdBattery")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdChargingport")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdChipCPU")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdChipGPU")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdColor")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdDiscount")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdMaterial")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdOperatingSystem")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdPhone")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdRam")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdRom")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdSim")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MainCamera")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("Resolution")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Sale")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Solid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Weight")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdBattery");
-
-                    b.HasIndex("IdChargingport");
-
-                    b.HasIndex("IdChipCPU");
-
-                    b.HasIndex("IdChipGPU");
-
-                    b.HasIndex("IdColor");
-
-                    b.HasIndex("IdDiscount");
-
-                    b.HasIndex("IdMaterial");
-
-                    b.HasIndex("IdOperatingSystem");
-
-                    b.HasIndex("IdPhone");
-
-                    b.HasIndex("IdRam");
-
-                    b.HasIndex("IdRom");
-
-                    b.HasIndex("IdSim");
-
-                    b.ToTable("PhoneDetailds");
-                });
-
-            modelBuilder.Entity("AppData.Models.ProductionCompany", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ProductionCompany");
                 });
 
-            modelBuilder.Entity("AppData.Models.Ram", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ram");
-                });
-
-            modelBuilder.Entity("AppData.Models.Rank", b =>
+            modelBuilder.Entity("AppData.Models.RankEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -786,33 +607,46 @@ namespace AppData.Migrations
                     b.ToTable("Ranks");
                 });
 
-            modelBuilder.Entity("AppData.Models.Refund", b =>
+            modelBuilder.Entity("AppData.Models.RefundEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Imei")
+                    b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneName")
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MetadataJson")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SerrialId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StatusDetail")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Refund");
+                    b.ToTable("RefundEntity");
                 });
 
-            modelBuilder.Entity("AppData.Models.Review", b =>
+            modelBuilder.Entity("AppData.Models.ReviewEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -821,13 +655,25 @@ namespace AppData.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("IdAccount")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdPhone")
+                    b.Property<Guid?>("LastModifiedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("VirtualItemId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -835,49 +681,26 @@ namespace AppData.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("AppData.Models.Rom", b =>
+            modelBuilder.Entity("AppData.Models.SalesEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rom");
-                });
-
-            modelBuilder.Entity("AppData.Models.SalePhoneDetaild", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("CreatedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdPhoneDetaild")
+                    b.Property<DateTime?>("CreatedOnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSales")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdPhoneDetaild");
-
-                    b.HasIndex("IdSales");
-
-                    b.ToTable("SalePhoneDetailds");
-                });
-
-            modelBuilder.Entity("AppData.Models.Sales", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime?>("LastModifiedOnDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -888,10 +711,7 @@ namespace AppData.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("TimeForm")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("TimeTo")
+                    b.Property<DateTime?>("ToDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -899,146 +719,70 @@ namespace AppData.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("AppData.Models.SellDailys", b =>
+            modelBuilder.Entity("AppData.Models.VirtualItemEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BestSeller")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<Guid?>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Refund")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SellOff")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SellOnl")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("Decription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("TotalMoneys")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TotalQuantity")
-                        .HasColumnType("int");
+                    b.Property<bool?>("Isdeleted")
+                        .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<bool?>("Ispublish")
+                        .HasColumnType("bit");
 
-                    b.ToTable("SellDailys");
-                });
-
-            modelBuilder.Entity("AppData.Models.SellMonthlys", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("LastModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BestSeller")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime?>("LastModifiedOnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Refund")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SellOff")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SellOnl")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("MetadataJson")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("TotalMoneys")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TotalQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SellMonthlys");
-                });
-
-            modelBuilder.Entity("AppData.Models.SellYearlys", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("BestSeller")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("Refund")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SellOff")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SellOnl")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("TotalMoneys")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TotalQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SellYearlys");
-                });
-
-            modelBuilder.Entity("AppData.Models.Sim", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Sim");
-                });
-
-            modelBuilder.Entity("AppData.Models.Warranty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("ParenId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Status")
+                    b.Property<int?>("Solid")
                         .HasColumnType("int");
 
-                    b.Property<int>("TimeWarranty")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VirtualType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Warranty");
+                    b.ToTable("VirtualItem");
                 });
 
-            modelBuilder.Entity("AppData.Models.WarrantyCard", b =>
+            modelBuilder.Entity("AppData.Models.WarrantyCardEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1080,230 +824,24 @@ namespace AppData.Migrations
                     b.ToTable("WarrantyCards");
                 });
 
-            modelBuilder.Entity("AppData.ViewModels.Phones.VTop5_PhoneSell", b =>
+            modelBuilder.Entity("AppData.Models.WarrantyEntity", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToView("VTop5_PhoneSell");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.Phones.VW_List_By_IdPhone", b =>
-                {
-                    b.Property<Guid>("IdPhone")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToView("VW_List_By_IdPhone");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.Phones.VW_Phone", b =>
-                {
-                    b.Property<Guid>("IdPhone")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdProductionComany")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductionComanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("VW_Phone");
-
-                    b.ToView("VW_Phone");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.Phones.VW_Phone_Group", b =>
-                {
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("IdPhone")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Price")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("PriceMax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductionComanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RamName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("VW_Phone_Group");
-
-                    b.ToView("VW_Phone_Group");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.Phones.VW_PhoneDetail", b =>
-                {
-                    b.Property<string>("BatteryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChargingportTypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChipCPUName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChipGPUName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ColorID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ColorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FrontCamera")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IdPhone")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdPhoneDetail")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MaterialName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OperatingSystemName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductionCompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RamID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RamName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("ReducedAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("Resolution")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RomName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SimName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Size")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("Weight")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("VW_PhoneDetail");
-
-                    b.ToView("VW_PhoneDetail");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.ThongKe.BillGanDay", b =>
-                {
-                    b.Property<decimal>("GiaTien")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("MaHoaDon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("STT")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("TenNguoiMua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TrangThaiGiaoHang")
+                    b.Property<int>("TimeWarranty")
                         .HasColumnType("int");
 
-                    b.Property<int>("TrangThaiThanhToan")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.ToView("BillGanDay");
-                });
-
-            modelBuilder.Entity("AppData.ViewModels.ThongKe.vOverView", b =>
-                {
-                    b.Property<int>("BillOffThangNay")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillOffThangTruoc")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillOnlThangNay")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillOnlThangTruoc")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillThanhCong")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillThatbai")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DanhGiaThangNay")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DanhGiaThangTruoc")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DoanhThuThangNay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DoanhThuThangTruoc")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToView("vOverView");
+                    b.ToTable("Warranty");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1439,9 +977,9 @@ namespace AppData.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AppData.Models.Address", b =>
+            modelBuilder.Entity("AppData.Models.AddressEntity", b =>
                 {
-                    b.HasOne("AppData.Models.Account", "Accounts")
+                    b.HasOne("AppData.Models.AccountEntity", "Accounts")
                         .WithMany()
                         .HasForeignKey("IdAccount")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1450,217 +988,56 @@ namespace AppData.Migrations
                     b.Navigation("Accounts");
                 });
 
-            modelBuilder.Entity("AppData.Models.Bill", b =>
+            modelBuilder.Entity("AppData.Models.BillDetailsEntity", b =>
                 {
-                    b.HasOne("AppData.Models.Account", "Accounts")
-                        .WithMany()
-                        .HasForeignKey("IdAccount");
+                    b.HasOne("AppData.Models.BillEntity", null)
+                        .WithMany("BillDetails")
+                        .HasForeignKey("BillEntityId");
 
-                    b.Navigation("Accounts");
-                });
-
-            modelBuilder.Entity("AppData.Models.BillDetails", b =>
-                {
-                    b.HasOne("AppData.Models.Bill", "Bills")
+                    b.HasOne("AppData.Models.BillEntity", "Bills")
                         .WithMany()
                         .HasForeignKey("IdBill")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppData.Models.Discount", "Discounts")
+                    b.HasOne("AppData.Models.DiscountEntity", "Discounts")
                         .WithMany()
                         .HasForeignKey("IdDiscount");
-
-                    b.HasOne("AppData.Models.PhoneDetaild", "PhoneDetaild")
-                        .WithMany()
-                        .HasForeignKey("IdPhoneDetail")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Bills");
 
                     b.Navigation("Discounts");
-
-                    b.Navigation("PhoneDetaild");
                 });
 
-            modelBuilder.Entity("AppData.Models.Cart", b =>
+            modelBuilder.Entity("AppData.Models.BillEntity", b =>
                 {
-                    b.HasOne("AppData.Models.Account", "Accounts")
-                        .WithOne("Carts")
-                        .HasForeignKey("AppData.Models.Cart", "IdAccount")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("AppData.Models.AccountEntity", "Accounts")
+                        .WithMany()
+                        .HasForeignKey("IdAccount");
 
                     b.Navigation("Accounts");
                 });
 
-            modelBuilder.Entity("AppData.Models.CartDetails", b =>
+            modelBuilder.Entity("AppData.Models.CartDetailsEntity", b =>
                 {
-                    b.HasOne("AppData.Models.Cart", "Carts")
-                        .WithMany()
-                        .HasForeignKey("IdAccount");
-
-                    b.HasOne("AppData.Models.PhoneDetaild", "PhoneDetailds")
-                        .WithMany()
-                        .HasForeignKey("IdPhoneDetaild")
+                    b.HasOne("AppData.Models.CartEntity", "Carts")
+                        .WithMany("CartDetails")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Carts");
-
-                    b.Navigation("PhoneDetailds");
                 });
 
-            modelBuilder.Entity("AppData.Models.Imei", b =>
+            modelBuilder.Entity("AppData.Models.CartEntity", b =>
                 {
-                    b.HasOne("AppData.Models.PhoneDetaild", "PhoneDetaild")
-                        .WithMany()
-                        .HasForeignKey("IdPhoneDetaild");
-
-                    b.Navigation("PhoneDetaild");
-                });
-
-            modelBuilder.Entity("AppData.Models.ListImage", b =>
-                {
-                    b.HasOne("AppData.Models.PhoneDetaild", "PhoneDetailds")
-                        .WithMany()
-                        .HasForeignKey("IdPhoneDetaild");
-
-                    b.Navigation("PhoneDetailds");
-                });
-
-            modelBuilder.Entity("AppData.Models.Phone", b =>
-                {
-                    b.HasOne("AppData.Models.ProductionCompany", "ProductionCompanies")
-                        .WithMany()
-                        .HasForeignKey("IdProductionCompany")
+                    b.HasOne("AppData.Models.AccountEntity", "Accounts")
+                        .WithOne("Carts")
+                        .HasForeignKey("AppData.Models.CartEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppData.Models.Warranty", "Warranty")
-                        .WithMany()
-                        .HasForeignKey("IdWarranty");
-
-                    b.Navigation("ProductionCompanies");
-
-                    b.Navigation("Warranty");
-                });
-
-            modelBuilder.Entity("AppData.Models.PhoneDetaild", b =>
-                {
-                    b.HasOne("AppData.Models.Battery", "Batteries")
-                        .WithMany()
-                        .HasForeignKey("IdBattery")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.ChargingportType", "ChargingportTypes")
-                        .WithMany()
-                        .HasForeignKey("IdChargingport")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.ChipCPUs", "ChipCPUs")
-                        .WithMany()
-                        .HasForeignKey("IdChipCPU")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.ChipGPUs", "ChipGPUs")
-                        .WithMany()
-                        .HasForeignKey("IdChipGPU")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Color", "Colors")
-                        .WithMany()
-                        .HasForeignKey("IdColor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Discount", "Discounts")
-                        .WithMany()
-                        .HasForeignKey("IdDiscount");
-
-                    b.HasOne("AppData.Models.Material", "Materials")
-                        .WithMany()
-                        .HasForeignKey("IdMaterial")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.OperatingSystems", "OperatingSystems")
-                        .WithMany()
-                        .HasForeignKey("IdOperatingSystem")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Phone", "Phones")
-                        .WithMany()
-                        .HasForeignKey("IdPhone")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Ram", "Rams")
-                        .WithMany()
-                        .HasForeignKey("IdRam")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Rom", "Roms")
-                        .WithMany()
-                        .HasForeignKey("IdRom")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Sim", "Sims")
-                        .WithMany()
-                        .HasForeignKey("IdSim")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Batteries");
-
-                    b.Navigation("ChargingportTypes");
-
-                    b.Navigation("ChipCPUs");
-
-                    b.Navigation("ChipGPUs");
-
-                    b.Navigation("Colors");
-
-                    b.Navigation("Discounts");
-
-                    b.Navigation("Materials");
-
-                    b.Navigation("OperatingSystems");
-
-                    b.Navigation("Phones");
-
-                    b.Navigation("Rams");
-
-                    b.Navigation("Roms");
-
-                    b.Navigation("Sims");
-                });
-
-            modelBuilder.Entity("AppData.Models.SalePhoneDetaild", b =>
-                {
-                    b.HasOne("AppData.Models.PhoneDetaild", "PhoneDetaild")
-                        .WithMany()
-                        .HasForeignKey("IdPhoneDetaild")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AppData.Models.Sales", "Sales")
-                        .WithMany()
-                        .HasForeignKey("IdSales")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PhoneDetaild");
-
-                    b.Navigation("Sales");
+                    b.Navigation("Accounts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1714,9 +1091,19 @@ namespace AppData.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AppData.Models.Account", b =>
+            modelBuilder.Entity("AppData.Models.AccountEntity", b =>
                 {
                     b.Navigation("Carts");
+                });
+
+            modelBuilder.Entity("AppData.Models.BillEntity", b =>
+                {
+                    b.Navigation("BillDetails");
+                });
+
+            modelBuilder.Entity("AppData.Models.CartEntity", b =>
+                {
+                    b.Navigation("CartDetails");
                 });
 #pragma warning restore 612, 618
         }

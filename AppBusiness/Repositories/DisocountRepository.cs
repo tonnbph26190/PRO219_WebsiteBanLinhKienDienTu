@@ -18,7 +18,7 @@ namespace AppData.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<bool> AddVoucher(Discount discount)
+        public async Task<bool> AddVoucher(DiscountEntity discount)
         {
             await _dbContext.Discount.AddAsync(discount);
             await _dbContext.SaveChangesAsync();
@@ -33,7 +33,7 @@ namespace AppData.Repositories
             return true;
         }
 
-        public async Task<bool> EditVoucher(Discount discount)
+        public async Task<bool> EditVoucher(DiscountEntity discount)
         {
 
             var a = await _dbContext.Discount.FindAsync(discount.Id);
@@ -53,14 +53,14 @@ namespace AppData.Repositories
 
      
 
-        public async Task<List<Discount>> GetallVoucher()
+        public async Task<List<DiscountEntity>> GetallVoucher()
         {
             return await _dbContext.Discount.ToListAsync();
         }
 
-        public List<Discount> GetallVoucher2()
+        public List<DiscountEntity> GetallVoucher2()
         {
-            var dis = new List<Discount>();
+            var dis = new List<DiscountEntity>();
             try
             {
                 dis = _dbContext.Discount.ToList();

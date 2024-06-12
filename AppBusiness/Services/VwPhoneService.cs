@@ -71,9 +71,9 @@ namespace AppData.Services
 
         }
 
-        public List<Warranty> ListWarrty()
+        public List<WarrantyEntity> ListWarrty()
         {
-            var lst = new List<Warranty>();
+            var lst = new List<WarrantyEntity>();
             try
             {
                 lst = _dbContext.Warranty.ToList();
@@ -86,9 +86,9 @@ namespace AppData.Services
             return lst;
         }
 
-        public List<ProductionCompany> ListCompany()
+        public List<ProductionCompanyEntity> ListCompany()
         {
-            var lst = new List<ProductionCompany>();
+            var lst = new List<ProductionCompanyEntity>();
             try
             {
                 lst = _dbContext.ProductionCompany.ToList();

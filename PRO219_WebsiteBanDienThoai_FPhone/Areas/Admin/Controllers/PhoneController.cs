@@ -205,7 +205,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             model.ListWarranty = _service.ListWarrty();
             model.PhoneDetail = await _phoneRepository.GetById(id);
             var data = await _httpClient.GetStringAsync("api/ProductionCompany/get");
-            List<ProductionCompany> a = JsonConvert.DeserializeObject<List<ProductionCompany>>(data);
+            List<ProductionCompanyEntity> a = JsonConvert.DeserializeObject<List<ProductionCompanyEntity>>(data);
             ViewBag.IdProductionCompany = new SelectList(a, "Id", "Name");
             return View(model);
         }

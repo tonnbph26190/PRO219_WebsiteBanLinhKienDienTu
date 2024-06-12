@@ -31,9 +31,9 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Services
             }
         }
 
-        public async Task<Discount> GetVoucherByMa(string ma)
+        public async Task<DiscountEntity> GetVoucherByMa(string ma)
         {
-            return await _httpClient.GetFromJsonAsync<Discount>($"/api/Discount/GetVoucherByMa/{ma}");
+            return await _httpClient.GetFromJsonAsync<DiscountEntity>($"/api/Discount/GetVoucherByMa/{ma}");
         }
 
         public Task<DiscountDTO> GetVoucherDTOById(string id)

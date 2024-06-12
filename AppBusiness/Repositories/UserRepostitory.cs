@@ -13,12 +13,12 @@ namespace AppData.Repositories
         {
             _dbContexts = dbContexts;
         }
-        public Task<List<Account>> GetAllAsync()
+        public Task<List<AccountEntity>> GetAllAsync()
         {
            return _dbContexts.Accounts.AsNoTracking().ToListAsync();
         }
 
-        public Task<Account?> GetById(Guid id)
+        public Task<AccountEntity?> GetById(Guid id)
         {
             return _dbContexts.Accounts.FirstOrDefaultAsync(c => c.Id == id);
         }

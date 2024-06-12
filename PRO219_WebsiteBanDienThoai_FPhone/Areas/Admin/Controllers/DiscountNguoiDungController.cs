@@ -13,12 +13,12 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
 
         public readonly FPhoneDbContext _context;
         public readonly IVoucherNguoiDung _voucherND;
-        private readonly SignInManager<Account> _signInManager;
-        private readonly UserManager<Account> _userManager;
+        private readonly SignInManager<AccountEntity> _signInManager;
+        private readonly UserManager<AccountEntity> _userManager;
         private readonly AppData.IServices.IDiscountServices _voucherSV;
         // GET: VoucherNguoiDungController
 
-        public DiscountNguoiDungController(IVoucherNguoiDung voucherNguoiDung,SignInManager<Account> signInManager , UserManager<Account> userManger , AppData.IServices.IDiscountServices discountServices )
+        public DiscountNguoiDungController(IVoucherNguoiDung voucherNguoiDung,SignInManager<AccountEntity> signInManager , UserManager<AccountEntity> userManger , AppData.IServices.IDiscountServices discountServices )
         {
             _context = new FPhoneDbContext();
             _voucherND = voucherNguoiDung;

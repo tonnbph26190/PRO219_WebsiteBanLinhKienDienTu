@@ -9,9 +9,9 @@ namespace AppData.IRepositories
 {
     public interface ISaleRepository
     {
-        Task<Sales> Add(Sales obj);
-        Task<Sales> Update(Sales obj);
-        Task<List<Sales>> GetAll();
+        Task<SalesEntity> Add(SalesEntity obj);
+        Task<SalesEntity> Update(SalesEntity obj);
+        Task<List<SalesEntity>> GetAll();
         Task Delete(Guid id);
     }
 }

@@ -18,7 +18,7 @@ namespace AppData.Repositories
         {
             _dbContext = dbContext;
         }
-        public Task<Address?> GetAddress(Guid IdUser)
+        public Task<AddressEntity?> GetAddress(Guid IdUser)
         {
             return _dbContext.Address.AsNoTracking().FirstOrDefaultAsync(c => c.IdAccount == IdUser && c.Status == 1);
         }

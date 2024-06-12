@@ -74,7 +74,7 @@ public class ListImageController : Controller
                     await item.CopyToAsync(stream);
                 }
 
-                ListImage obj = new ListImage()
+                ListImageEntity obj = new ListImageEntity()
                 {
                     Image = "/img/" + fileName,
                     IdPhoneDetaild = model.Record.IdPhoneDetail

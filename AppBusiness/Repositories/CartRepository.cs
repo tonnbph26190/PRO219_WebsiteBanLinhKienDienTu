@@ -21,7 +21,7 @@ namespace AppData.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<Cart> Add(Cart obj)
+        public async Task<CartEntity> Add(CartEntity obj)
         {
             await _dbContext.Carts.AddAsync(obj);
             await _dbContext.SaveChangesAsync();
@@ -35,13 +35,13 @@ namespace AppData.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Cart>> GetAll()
+        public async Task<List<CartEntity>> GetAll()
         {
             return await _dbContext.Carts.ToListAsync();
         }
 
 
-        public async Task<Cart> GetById(Guid id)
+        public async Task<CartEntity> GetById(Guid id)
         {
             return await _dbContext.Carts.FirstOrDefaultAsync(p => p.IdAccount == id);
         }

@@ -23,7 +23,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Warranty obj)
+        public async Task<IActionResult> Create(WarrantyEntity obj)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, Warranty obj)
+        public async Task<IActionResult> Edit(Guid id, WarrantyEntity obj)
         {
             if (id != obj.Id)
             {

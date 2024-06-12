@@ -19,9 +19,9 @@ namespace AppData.Services
         {
             _context = context;
         }
-        public Blog Add(Blog obj)
+        public BlogEntity Add(BlogEntity obj)
         {
-            var data = new Blog();
+            var data = new BlogEntity();
             try
             {
                 BeanUtils.CopyAllPropertySameName(obj,data);
@@ -36,7 +36,7 @@ namespace AppData.Services
             return data;
         }
 
-        public Blog Update(Blog obj)
+        public BlogEntity Update(BlogEntity obj)
         {
             var data = _context.Blogs.FirstOrDefault(c => c.Id == obj.Id);
             try
@@ -53,7 +53,7 @@ namespace AppData.Services
             return data;
         }
 
-        public Blog Delete(Guid id)
+        public BlogEntity Delete(Guid id)
         {
             var data = _context.Blogs.FirstOrDefault(c => c.Id == id);
             try
@@ -69,14 +69,14 @@ namespace AppData.Services
             return data;
         }
 
-        public Blog Details(Guid id)
+        public BlogEntity Details(Guid id)
         {
             return _context.Blogs.FirstOrDefault(c => c.Id == id);
         }
 
-        public List<Blog> GetAll(Blog searchData, ListOptions listOptions)
+        public List<BlogEntity> GetAll(BlogEntity searchData, ListOptions listOptions)
         {
-            var lst = new List<Blog>();
+            var lst = new List<BlogEntity>();
             try
             {
                 lst = _context.Blogs.Where(c => searchData == null ||

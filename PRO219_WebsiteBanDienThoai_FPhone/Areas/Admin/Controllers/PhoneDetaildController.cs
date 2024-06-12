@@ -49,7 +49,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
                 if (!productionCompanyNames.ContainsKey(a.Phones.IdProductionCompany))
                 {
                     var productionCompanyData = await _httpClient.GetStringAsync($"api/ProductionCompany/getById/{a.Phones.IdProductionCompany}");
-                    var productionCompany = JsonConvert.DeserializeObject<ProductionCompany>(productionCompanyData);
+                    var productionCompany = JsonConvert.DeserializeObject<ProductionCompanyEntity>(productionCompanyData);
                     productionCompanyNames.Add(a.Phones.IdProductionCompany, productionCompany.Name);
                 }
                 if (!phoneName.ContainsKey(a.IdPhone))

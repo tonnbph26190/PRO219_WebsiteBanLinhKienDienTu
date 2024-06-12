@@ -11,11 +11,11 @@ namespace AppData.IServices
 {
     public interface IDiscountServices
     {
-        Task<bool> AddVoucher(Discount discount);
+        Task<bool> AddVoucher(DiscountEntity discount);
         Task<bool> DeleteVoucher(Guid id);
-        Task<bool> EditVoucher(Discount discount);
-        Task<List<Discount>> GetallVoucher();
-       List<Discount> GetallVoucher2();
+        Task<bool> EditVoucher(DiscountEntity discount);
+        Task<List<DiscountEntity>> GetallVoucher();
+       List<DiscountEntity> GetallVoucher2();
       
     }
 }

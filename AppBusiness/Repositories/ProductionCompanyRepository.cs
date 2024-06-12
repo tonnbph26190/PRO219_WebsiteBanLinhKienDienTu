@@ -12,7 +12,7 @@ namespace AppData.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<ProductionCompany> Add(ProductionCompany obj)
+        public async Task<ProductionCompanyEntity> Add(ProductionCompanyEntity obj)
         {
             await _dbContext.ProductionCompany.AddAsync(obj);
             await _dbContext.SaveChangesAsync();
@@ -26,17 +26,17 @@ namespace AppData.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<ProductionCompany>> GetAll()
+        public async Task<List<ProductionCompanyEntity>> GetAll()
         {
             return await _dbContext.ProductionCompany.ToListAsync();
         }
 
-        public async Task<ProductionCompany> GetById(Guid id)
+        public async Task<ProductionCompanyEntity> GetById(Guid id)
         {
             return await _dbContext.ProductionCompany.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<ProductionCompany> Update(ProductionCompany obj)
+        public async Task<ProductionCompanyEntity> Update(ProductionCompanyEntity obj)
         {
             var a = await _dbContext.ProductionCompany.FindAsync(obj.Id);
             a.Name = obj.Name;

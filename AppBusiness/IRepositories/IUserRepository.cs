@@ -9,7 +9,7 @@ namespace AppData.IRepositories
 {
     public interface IUserRepository
     {
-        public Task<List<Account>> GetAllAsync();
-        public Task<Account?> GetById(Guid id);
+        public Task<List<AccountEntity>> GetAllAsync();
+        public Task<AccountEntity?> GetById(Guid id);
     }
 }

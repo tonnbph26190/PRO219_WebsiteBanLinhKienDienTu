@@ -13,7 +13,7 @@ namespace AppData.IServices
     {
         List<VW_Phone_Group> listVwPhoneGroup(VW_Phone_Group model);
         List<VW_Phone_Group> listVwPhoneGroup(VW_Phone_Group model, ListOptions options);
-        List<Warranty> ListWarrty();
-        List<ProductionCompany> ListCompany();
+        List<WarrantyEntity> ListWarrty();
+        List<ProductionCompanyEntity> ListCompany();
     }
 }

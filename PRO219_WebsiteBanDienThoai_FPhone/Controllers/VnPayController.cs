@@ -63,7 +63,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Controllers
             {
                 return BadRequest("User Id is not available.");
             }
-            Bill bill = new Bill();
+            BillEntity bill = new BillEntity();
             bill.Id = new Guid();
             bill.Address = request.Address + "," + request.Province + "," + request.District + "," + request.Ward;
             bill.Name = request.Name;
@@ -81,12 +81,12 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Controllers
             Guid idhd = bill.Id;
             var product = _dbContext.CartDetails.Where(a => a.IdAccount == Guid.Parse(userId)).ToList();
 
-            List<BillDetails> Listbill = new List<BillDetails>();
+            List<BillDetailsEntity> Listbill = new List<BillDetailsEntity>();
 
             foreach (var item in product)
             {
                 // Thêm sản phẩm điện thoại vào bill detail
-                BillDetails billDetail = new BillDetails();
+                BillDetailsEntity billDetail = new BillDetailsEntity();
                 billDetail.IdBill = idhd;
                 billDetail.Id = Guid.NewGuid();
                 billDetail.IdPhoneDetail = item.IdPhoneDetaild;

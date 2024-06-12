@@ -8,7 +8,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
 {
     public class CheckOutViewModel
     {
-        public Bill Bill { get; set; } 
+        public BillEntity Bill { get; set; } 
         public List<Province> Provinces { get; set; } = new List<Province>();
         /// <summary>
         /// danh sách thông tin chi tiết điện thoại ( VW_PhoneDetail  )

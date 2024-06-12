@@ -10,9 +10,9 @@ namespace AppData.IServices
 {
     public interface IContactService
     {
-        public Contact Add(Contact obj);
-        public Contact Update(Contact obj);
-        public List<Contact> ListContact(Contact SearchData,ListOptions listOptions);
-        public Contact Details(Guid id);
+        public ContactEntity Add(ContactEntity obj);
+        public ContactEntity Update(ContactEntity obj);
+        public List<ContactEntity> ListContact(ContactEntity SearchData,ListOptions listOptions);
+        public ContactEntity Details(Guid id);
     }
 }

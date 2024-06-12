@@ -31,8 +31,8 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
             
         public ListOptions ListOptions { get; set; } = new ListOptions();
 
-        public Contact SearchData { get; set; } = new Contact();
+        public ContactEntity SearchData { get; set; } = new ContactEntity();
 
-        public List<Contact> Records { get; set; } = new List<Contact>();
+        public List<ContactEntity> Records { get; set; } = new List<ContactEntity>();
     }
 }

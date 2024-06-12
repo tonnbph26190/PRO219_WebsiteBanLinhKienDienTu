@@ -3,13 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace AppData.Configuration
 {
-    public class ListImageConfiguration : IEntityTypeConfiguration<ListImage>
+    public class ListImageConfiguration : IEntityTypeConfiguration<ListImageEntity>
     {
-        public void Configure(EntityTypeBuilder<ListImage> builder)
+        public void Configure(EntityTypeBuilder<ListImageEntity> builder)
         {
             builder.HasKey(p => p.Id);
-
-            builder.HasOne(p => p.PhoneDetailds).WithMany().HasForeignKey(p => p.IdPhoneDetaild);
         }
     }
 }

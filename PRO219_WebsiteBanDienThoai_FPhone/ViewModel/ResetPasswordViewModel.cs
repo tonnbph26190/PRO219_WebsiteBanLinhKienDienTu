@@ -8,6 +8,6 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        public Account Data { get; set; } = new Account();
+        public AccountEntity Data { get; set; } = new AccountEntity();
     }
 }

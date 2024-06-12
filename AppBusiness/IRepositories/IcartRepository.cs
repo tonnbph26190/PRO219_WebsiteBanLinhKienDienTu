@@ -9,9 +9,9 @@ namespace AppData.IRepositories
 {
     public interface IcartRepository
     {
-        Task<Cart> Add(Cart obj);
-        Task<Cart> GetById(Guid id);
-        Task<List<Cart>> GetAll();
+        Task<CartEntity> Add(CartEntity obj);
+        Task<CartEntity> GetById(Guid id);
+        Task<List<CartEntity>> GetAll();
         Task Delete(Guid id);
 
       

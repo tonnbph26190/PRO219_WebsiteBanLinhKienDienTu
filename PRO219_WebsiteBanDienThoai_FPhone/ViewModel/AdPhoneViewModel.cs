@@ -29,7 +29,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
         public Guid? IdWarranty { get; set; }
         public DateTime? CreateDate { get; set; } = DateTime.Now;
 
-        public List<Warranty> ListWarranty { get; set; } = new List<Warranty>();
-        public List<ProductionCompany> ListCompany { get; set; } = new List<ProductionCompany>();
+        public List<WarrantyEntity> ListWarranty { get; set; } = new List<WarrantyEntity>();
+        public List<ProductionCompanyEntity> ListCompany { get; set; } = new List<ProductionCompanyEntity>();
     }
 }

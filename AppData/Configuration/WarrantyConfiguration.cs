@@ -3,13 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace AppData.Configuration
 {
-    public class WarrantyConfiguration : IEntityTypeConfiguration<Warranty>
+    public class WarrantyConfiguration : IEntityTypeConfiguration<WarrantyEntity>
     {
-        public void Configure(EntityTypeBuilder<Warranty> builder)
+        public void Configure(EntityTypeBuilder<WarrantyEntity> builder)
         {
             builder.HasKey(p => p.Id);
-
-           
         }
     }
 }

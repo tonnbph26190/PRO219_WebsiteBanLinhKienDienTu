@@ -19,7 +19,7 @@ namespace AppData.Services
         {
             _context = context;
         }
-        public Contact Add(Contact obj)
+        public ContactEntity Add(ContactEntity obj)
         {
             try
             {
@@ -34,9 +34,9 @@ namespace AppData.Services
             return obj;
         }
 
-        public Contact Update(Contact obj)
+        public ContactEntity Update(ContactEntity obj)
         {
-            var data = new Contact();
+            var data = new ContactEntity();
             try
             {
                 data = _context.Contact.FirstOrDefault(c => c.ID == obj.ID);
@@ -52,9 +52,9 @@ namespace AppData.Services
             return obj;
         }
 
-        public List<Contact> ListContact(Contact SearchData, ListOptions listOptions)
+        public List<ContactEntity> ListContact(ContactEntity SearchData, ListOptions listOptions)
         {
-            var lst = new List<Contact>();
+            var lst = new List<ContactEntity>();
             try
             {
                 lst = _context.Contact.Where(c => (c.Status == null ||c.Status == SearchData.Status)).OrderByDescending(c =>c.CreateDate).Skip(listOptions.SkipCalc).Take(listOptions.PageSize).ToList();
@@ -68,7 +68,7 @@ namespace AppData.Services
             return lst;
         }
 
-        public Contact Details(Guid id)
+        public ContactEntity Details(Guid id)
         {
             return _context.Contact.FirstOrDefault(c => c.ID == id);
         }

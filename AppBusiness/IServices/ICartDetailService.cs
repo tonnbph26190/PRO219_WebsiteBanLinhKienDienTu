@@ -9,6 +9,6 @@ namespace AppData.IServices
 {
     public interface ICartDetailService
     {
-        List<CartDetails> GetCartDetailsByIdAccount(Guid id);   
+        List<CartDetailsEntity> GetCartDetailsByIdAccount(Guid id);   
     }
 }

@@ -9,12 +9,12 @@ namespace AppData.IRepositories
 {
     public interface ICartDetailRepository
     {
-        Task<CartDetails> Add(CartDetails obj);
-        Task<CartDetails> Update(CartDetails obj);
-        Task<List<CartDetails>> GetAll();
+        Task<CartDetailsEntity> Add(CartDetailsEntity obj);
+        Task<CartDetailsEntity> Update(CartDetailsEntity obj);
+        Task<List<CartDetailsEntity>> GetAll();
         Task Delete(Guid id);
 
-        Task<CartDetails> GetById(Guid id);
-        Task<List<CartDetails>> GetByIdAcout(Guid id);
+        Task<CartDetailsEntity> GetById(Guid id);
+        Task<List<CartDetailsEntity>> GetByIdAcout(Guid id);
     }
 }

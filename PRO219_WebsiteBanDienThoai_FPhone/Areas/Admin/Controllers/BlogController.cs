@@ -40,7 +40,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Blog obj, IFormFile file)
+        public async Task<IActionResult> Create(BlogEntity obj, IFormFile file)
         {
             if (file != null && file.Length > 0) // khong null va khong trong 
             {
@@ -66,13 +66,13 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            Blog model = new Blog();
+            BlogEntity model = new BlogEntity();
             model = _service.Details(id);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Blog obj, IFormFile file)
+        public async Task<IActionResult> Edit(BlogEntity obj, IFormFile file)
         {
             if (file != null && file.Length > 0) // khong null va khong trong 
             {

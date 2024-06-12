@@ -23,7 +23,7 @@ namespace AppData.Services
             return _dbContext.billGanDays.ToList();
         }
 
-        public List<Bill> BillThang()
+        public List<BillEntity> BillThang()
         {
             var month = DateTime.Now.Month;
             return _dbContext.Bill.Where(c => c.CreatedTime.Month == month).ToList();

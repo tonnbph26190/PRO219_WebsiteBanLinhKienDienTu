@@ -9,13 +9,13 @@ namespace AppData.IRepositories
 {
     public interface IBillRepository
     {
-        Task<Bill> Add(Bill obj);
-        Task<Bill> Update(Bill obj);
-        Task<List<Bill>> GetAll();
+        Task<BillEntity> Add(BillEntity obj);
+        Task<BillEntity> Update(BillEntity obj);
+        Task<List<BillEntity>> GetAll();
         Task Delete(Guid id);
 
-        Task<Bill> GetById(Guid id);
-        BillDetails AddBillDetail(BillDetails model);
+        Task<BillEntity> GetById(Guid id);
+        BillDetailsEntity AddBillDetail(BillDetailsEntity model);
 
     }
 }
