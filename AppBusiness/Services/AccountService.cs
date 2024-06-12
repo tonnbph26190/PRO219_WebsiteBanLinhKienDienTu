@@ -104,7 +104,7 @@ namespace AppData.Services
             return dbo;
         }
 
-        public Account UpdateUser(Guid id, Account user, out DataError error)
+        public AccountEntity UpdateUser(Guid id, AccountEntity user, out DataError error)
         {
             error = new DataError() { Success = true };
             var dbo = _dbContext.Accounts.Find(id);
@@ -124,9 +124,9 @@ namespace AppData.Services
             return dbo;
         }
 
-        public Account GetUserByEmail(string email)
+        public AccountEntity GetUserByEmail(string email)
         {
-            var account = new Account();
+            var account = new AccountEntity();
             try
             {
                 account = _dbContext.Accounts.FirstOrDefault(c => c.Email == email);
@@ -139,9 +139,9 @@ namespace AppData.Services
             return account;
         }
 
-        public Account GetUserByUserName(string userName)
+        public AccountEntity GetUserByUserName(string userName)
         {
-            var account = new Account();
+            var account = new AccountEntity();
             try
             {
                 account = _dbContext.Accounts.FirstOrDefault(c => c.Username == userName);
@@ -155,9 +155,9 @@ namespace AppData.Services
         }
 
 
-        public Account GetUserById(Guid idGuid)
+        public AccountEntity GetUserById(Guid idGuid)
         {
-            var account = new Account();
+            var account = new AccountEntity();
             try
             {
                 account = _dbContext.Accounts.FirstOrDefault(c => c.Id == idGuid);
@@ -170,9 +170,9 @@ namespace AppData.Services
             return account;
         }
 
-        public Account GetUserByPhoneNumber(string phoneNumber)
+        public AccountEntity GetUserByPhoneNumber(string phoneNumber)
         {
-            var account = new Account();
+            var account = new AccountEntity();
             try
             {
                 account = _dbContext.Accounts.FirstOrDefault(c => c.PhoneNumber == phoneNumber);
@@ -185,9 +185,9 @@ namespace AppData.Services
             return account;
         }
 
-        public Account CreateAccountForUser(Account model)
+        public AccountEntity CreateAccountForUser(AccountEntity model)
         {
-            var account = new Account();
+            var account = new AccountEntity();
             try
             {
                 BeanUtils.CopyAllPropertySameName(model,account);

@@ -9,11 +9,11 @@ namespace AppData.IRepositories
 {
     public interface IBlogRepository
     {
-        Task<Blog> Add(Blog obj);
-        Task<Blog> Update(Blog obj);
-        Task<List<Blog>> GetAll();
+        Task<BlogEntity> Add(BlogEntity obj);
+        Task<BlogEntity> Update(BlogEntity obj);
+        Task<List<BlogEntity>> GetAll();
         Task Delete(Guid id);
 
-        Task<Blog> GetById(Guid id);
+        Task<BlogEntity> GetById(Guid id);
     }
 }

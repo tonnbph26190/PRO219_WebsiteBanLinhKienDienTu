@@ -211,14 +211,14 @@ public class VwPhoneDetailService : IVwPhoneDetailService
         
         return dbo;
     }
-    public List<Review> GetListComment(string id)
+    public List<ReviewEntity> GetListComment(string id)
     {
         return _dbContext.Reviews.Where(t => t.IdPhone.ToString() == id).ToList();
     }
 
     public int CreateComment(string comment, string idAccount, string idPhone)
     {
-        Review review = new Review()
+        ReviewEntity review = new ReviewEntity()
         {
             DateTime = DateTime.Now,
             Content = comment,

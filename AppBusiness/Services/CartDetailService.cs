@@ -17,9 +17,9 @@ namespace AppData.Services
         {
             _dbContext = dbContext;
         }
-        public List<CartDetails> GetCartDetailsByIdAccount(Guid id)
+        public List<CartDetailsEntity> GetCartDetailsByIdAccount(Guid id)
         {
-            var lst = new List<CartDetails>();
+            var lst = new List<CartDetailsEntity>();
             try
             {
                lst = _dbContext.CartDetails.Where(c => c.IdAccount == id).ToList();

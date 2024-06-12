@@ -12,21 +12,21 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Services
             var jsonString = JsonConvert.SerializeObject(value);
             session.SetString(key, jsonString);
         }
-        public static List<Account> GetObjFromSession(ISession session, string key)
+        public static List<AccountEntity> GetObjFromSession(ISession session, string key)
         {
             var data = session.GetString(key); // doc du lieu tu ss
             if (data != null)
             {
-                var listobj = JsonConvert.DeserializeObject<List<Account>>(data);
+                var listobj = JsonConvert.DeserializeObject<List<AccountEntity>>(data);
                 return listobj;
             }
             else
             {
-                return new List<Account>();
+                return new List<AccountEntity>();
             }
         }
 
-        public static bool CheckProductInTK(Guid Id, List<Account> cartpd)
+        public static bool CheckProductInTK(Guid Id, List<AccountEntity> cartpd)
         {
             return cartpd.Any(p => p.Id == Id);
         }

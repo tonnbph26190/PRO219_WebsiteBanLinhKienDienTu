@@ -73,7 +73,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Controllers
                 var check = _context.WarrantyCards.FirstOrDefault(p => p.IdBillDetail == billDetail.Id);
                 if(check == null)
                 {
-                    var warrantyCard = new WarrantyCard();
+                    var warrantyCard = new WarrantyCardEntity();
                     warrantyCard.Id = Guid.NewGuid();
                     warrantyCard.IdBillDetail = billDetail.Id;
                     warrantyCard.IdAccount = billDetail.Bills.IdAccount;

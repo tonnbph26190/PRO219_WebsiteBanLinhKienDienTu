@@ -18,9 +18,9 @@ namespace AppData.Repositories
         {
             _dbContext = new FPhoneDbContext();
         }
-        public async Task<Bill> Add(Bill obj)
+        public async Task<BillEntity> Add(BillEntity obj)
         {
-            Bill dbo = new Bill();
+            BillEntity dbo = new BillEntity();
             try
             {
                 BeanUtils.CopyAllPropertySameName(obj,dbo);
@@ -42,19 +42,19 @@ namespace AppData.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Bill>> GetAll()
+        public async Task<List<BillEntity>> GetAll()
         {
             return await _dbContext.Bill.ToListAsync();
         }
 
-        public async Task<Bill> GetById(Guid id)
+        public async Task<BillEntity> GetById(Guid id)
         {
             return await _dbContext.Bill.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public BillDetails AddBillDetail(BillDetails model)
+        public BillDetailsEntity AddBillDetail(BillDetailsEntity model)
         {
-            var data = new BillDetails();
+            var data = new BillDetailsEntity();
             try
             {
                 BeanUtils.CopyAllPropertySameName(model,data);
@@ -69,7 +69,7 @@ namespace AppData.Repositories
             return data;
         }
 
-        public async Task<Bill> Update(Bill obj)
+        public async Task<BillEntity> Update(BillEntity obj)
         {
             var a = await _dbContext.Bill.FindAsync(obj.Id);
             a.CreatedTime = obj.CreatedTime;

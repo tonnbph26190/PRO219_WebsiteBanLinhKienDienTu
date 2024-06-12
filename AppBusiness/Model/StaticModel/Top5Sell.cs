@@ -26,6 +26,6 @@ namespace AppData.Models
 
         public int? Points { get; set; }
 
-        public virtual Cart? Carts { get; set; }
+        public virtual CartEntity? Carts { get; set; }
     }
 }

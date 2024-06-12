@@ -20,8 +20,8 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
       public Phone PhoneDetail { get; set; } = new Phone();
       public IFormFile file { get; set; }
 
-      public List<ProductionCompany> ListCompany { get; set; } = new List<ProductionCompany>();
-      public List<Warranty> ListWarranty { get; set; } = new List<Warranty>();
+      public List<ProductionCompanyEntity> ListCompany { get; set; } = new List<ProductionCompanyEntity>();
+      public List<WarrantyEntity> ListWarranty { get; set; } = new List<WarrantyEntity>();
         //create    
         public PhoneDetaild DetailOfPhoneDetaild { get; set; } = new PhoneDetaild();
         //detail

@@ -22,9 +22,9 @@ namespace AppData.Services
         {
             _dbContext = dbContext;
         }
-        public List<ListImage> GetListImagesByIdPhoneDetail(Guid IdPhoneDetail)
+        public List<ListImageEntity> GetListImagesByIdPhoneDetail(Guid IdPhoneDetail)
         {
-            var lst = new List<ListImage>();
+            var lst = new List<ListImageEntity>();
             try
             {
                 lst = _dbContext.ListImage.AsNoTracking().Where(c => c.IdPhoneDetaild == IdPhoneDetail).ToList();
@@ -38,7 +38,7 @@ namespace AppData.Services
             return lst;
         }
 
-        public ListImage Create(ListImage model, out DataError error)
+        public ListImageEntity Create(ListImageEntity model, out DataError error)
         {
             error = new DataError() { Success = true };
             try
@@ -80,7 +80,7 @@ namespace AppData.Services
 
         public string GetFirstImageByIdPhondDetail(Guid id)
         {
-            ListImage img = new ListImage();
+            ListImageEntity img = new ListImageEntity();
             try
             {
                 img.Image = _dbContext.ListImage.FirstOrDefault(c => c.IdPhoneDetaild == id).Image;

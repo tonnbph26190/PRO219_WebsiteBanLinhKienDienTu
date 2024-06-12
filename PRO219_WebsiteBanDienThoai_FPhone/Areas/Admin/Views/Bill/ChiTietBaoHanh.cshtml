@@ -1,5 +1,5 @@
 ﻿@using AppData.Models;
-@model BillDetails
+@model BillDetailsEntity
 
 <style>
     .button-abc {
@@ -110,8 +110,8 @@
     String dh1 = "Đang thực hiện bảo hành";
     String dh2 = "Bảo hành hành công";
 
-    IEnumerable<WarrantyCard> listWarrantyCard = ViewBag.WarrantyCards as IEnumerable<WarrantyCard>;
-    IEnumerable<BillDetails> listBillDetails = ViewBag.BillDetails as IEnumerable<BillDetails>;
+    IEnumerable<WarrantyCardEntity> listWarrantyCard = ViewBag.WarrantyCards as IEnumerable<WarrantyCardEntity>;
+    IEnumerable<BillDetailsEntity> listBillDetails = ViewBag.BillDetails as IEnumerable<BillDetailsEntity>;
 }
 
 <h1>Chi tiết bảo hành</h1>

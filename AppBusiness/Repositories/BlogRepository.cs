@@ -18,7 +18,7 @@ namespace AppData.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Blog> Add(Blog obj)
+        public async Task<BlogEntity> Add(BlogEntity obj)
         {
             await _dbContext.Blogs.AddAsync(obj);
             await _dbContext.SaveChangesAsync();
@@ -32,9 +32,9 @@ namespace AppData.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Blog>> GetAll()
+        public async Task<List<BlogEntity>> GetAll()
         {
-            var lst = new List<Blog>();
+            var lst = new List<BlogEntity>();
             try
             {
                 lst = await _dbContext.Blogs.ToListAsync();
@@ -48,9 +48,9 @@ namespace AppData.Repositories
             return lst;
         }
 
-        public async Task<Blog> GetById(Guid id)
+        public async Task<BlogEntity> GetById(Guid id)
         {
-            var blogs = new Blog();
+            var blogs = new BlogEntity();
             try
             {
                 blogs = await _dbContext.Blogs.FirstOrDefaultAsync(p => p.Id == id);
@@ -64,7 +64,7 @@ namespace AppData.Repositories
             return blogs;
         }
 
-        public async Task<Blog> Update(Blog obj)
+        public async Task<BlogEntity> Update(BlogEntity obj)
         {
             var a = await _dbContext.Blogs.FindAsync(obj.Id);
             a.Title = obj.Title;

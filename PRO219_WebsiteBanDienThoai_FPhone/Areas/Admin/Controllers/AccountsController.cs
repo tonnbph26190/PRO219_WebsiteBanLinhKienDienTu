@@ -128,7 +128,7 @@ public class AccountsController : Controller
 
     public IActionResult Editkhachhang(Guid id)
     {
-        Account Accounts = _context.Accounts.Find(id);
+        AccountEntity Accounts = _context.Accounts.Find(id);
         Accounts.Status = 1;
         _context.SaveChanges();
         return Json(new { success = true, data = "/Accounts/KhachHang" });
@@ -137,7 +137,7 @@ public class AccountsController : Controller
     }
     public IActionResult Editkhachhang1(Guid id)
     {
-        Account Accounts = _context.Accounts.Find(id);
+        AccountEntity Accounts = _context.Accounts.Find(id);
         Accounts.Status = 0;
         _context.SaveChanges();
         return Json(new { success = true, data = "/Accounts/KhachHang" });
@@ -169,7 +169,7 @@ public class AccountsController : Controller
         }
         else
         {
-            return View(new List<Account>().ToPagedList(pageNumber ?? 1, pageSize));
+            return View(new List<AccountEntity>().ToPagedList(pageNumber ?? 1, pageSize));
         }
     }
     public IActionResult AddSildeShow()

@@ -6,8 +6,8 @@ namespace AppData.IServices
 {
     public interface IListImageService
     {
-        List<ListImage> GetListImagesByIdPhoneDetail(Guid IdPhoneDetail);
-        ListImage Create(ListImage model, out DataError error);
+        List<ListImageEntity> GetListImagesByIdPhoneDetail(Guid IdPhoneDetail);
+        ListImageEntity Create(ListImageEntity model, out DataError error);
         bool Delete(Guid Id);
         int CheckExits(string imageUrl,Guid idPhoneDetail);
         string GetFirstImageByIdPhondDetail(Guid id);

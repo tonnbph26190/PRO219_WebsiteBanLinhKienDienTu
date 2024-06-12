@@ -20,7 +20,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var datajson = await _httpClient.GetStringAsync("api/ProductionCompany/get");
-            var obj = JsonConvert.DeserializeObject<List<ProductionCompany>>(datajson);
+            var obj = JsonConvert.DeserializeObject<List<ProductionCompanyEntity>>(datajson);
             return View(obj);
         }
 
@@ -30,7 +30,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductionCompany obj)
+        public async Task<IActionResult> Create(ProductionCompanyEntity obj)
         {
             if (!ModelState.IsValid)
             {
@@ -60,12 +60,12 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var datajson = await _httpClient.GetStringAsync($"api/ProductionCompany/getById/{id}");
-            var obj = JsonConvert.DeserializeObject<ProductionCompany>(datajson);
+            var obj = JsonConvert.DeserializeObject<ProductionCompanyEntity>(datajson);
             return View(obj);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, ProductionCompany obj)
+        public async Task<IActionResult> Edit(Guid id, ProductionCompanyEntity obj)
         {
             if (!ModelState.IsValid)
             {

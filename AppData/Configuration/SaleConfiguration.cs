@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AppData.Configuration
 {
-    public class SaleConfiguration : IEntityTypeConfiguration<Sales>
+    public class SaleConfiguration : IEntityTypeConfiguration<SalesEntity>
     {
-        public void Configure(EntityTypeBuilder<Sales> builder)
+        public void Configure(EntityTypeBuilder<SalesEntity> builder)
         {
             builder.HasKey(p => p.Id);
         }

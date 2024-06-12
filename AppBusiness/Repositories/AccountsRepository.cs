@@ -80,7 +80,7 @@ namespace AppData.Repositories
             
             try
             {
-                Account ac = new Account()
+                AccountEntity ac = new AccountEntity()
                 {
                     Id = model.Id,
                     Email = model.Email,

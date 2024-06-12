@@ -26,9 +26,9 @@ namespace AppData.Repositories
 
 
 
-        public async Task<List<Rank>> GetAll()
+        public async Task<List<RankEntity>> GetAll()
         {
-            var lst = new List<Rank>();
+            var lst = new List<RankEntity>();
             try
             {
                 lst = await _dbContext.Ranks.ToListAsync();
@@ -42,9 +42,9 @@ namespace AppData.Repositories
             return lst;
         }
 
-        public async Task<Rank> GetById(Guid id)
+        public async Task<RankEntity> GetById(Guid id)
         {
-            var ranks = new Rank();
+            var ranks = new RankEntity();
             try
             {
                 ranks = await _dbContext.Ranks.FirstOrDefaultAsync(p => p.Id == id);
@@ -58,7 +58,7 @@ namespace AppData.Repositories
             return ranks;
         }
 
-        public async Task<List<Rank>> GetByYear(int days)
+        public async Task<List<RankEntity>> GetByYear(int days)
         {
             return await _dbContext.Ranks.Where(e => e.Days == days).ToListAsync();
           //  return true;

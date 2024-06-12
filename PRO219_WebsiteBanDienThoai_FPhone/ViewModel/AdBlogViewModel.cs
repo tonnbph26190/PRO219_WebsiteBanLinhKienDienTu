@@ -5,9 +5,9 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.ViewModel
 {
     public class AdBlogViewModel
     {
-        public List<Blog> Records { get; set; } = new List<Blog>();
+        public List<BlogEntity> Records { get; set; } = new List<BlogEntity>();
         public ListOptions ListOptions { get; set; } = new ListOptions();
-        public Blog SearchData { get; set; } = new Blog();
-        public Blog DetailModel { get; set; } = new Blog();
+        public BlogEntity SearchData { get; set; } = new BlogEntity();
+        public BlogEntity DetailModel { get; set; } = new BlogEntity();
     }
 }

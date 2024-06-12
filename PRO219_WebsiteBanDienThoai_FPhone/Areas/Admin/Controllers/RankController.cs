@@ -19,7 +19,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var datajson = await _httpClient.GetStringAsync("api/Rank/get");
-            var obj = JsonConvert.DeserializeObject<List<Rank>>(datajson);
+            var obj = JsonConvert.DeserializeObject<List<RankEntity>>(datajson);
             return View(obj.OrderBy(c =>c.STT));
         }
       

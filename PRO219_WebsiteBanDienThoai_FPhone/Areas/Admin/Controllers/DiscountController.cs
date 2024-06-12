@@ -40,7 +40,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Index(string trangthai)
         {
             var datajson = await _httpClient.GetStringAsync("api/Discount");
-            var obj = JsonConvert.DeserializeObject<List<Discount>>(datajson);
+            var obj = JsonConvert.DeserializeObject<List<DiscountEntity>>(datajson);
             return View(obj);
         }
         [HttpPost]
@@ -48,7 +48,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         {
            
             var data = await _httpClient.GetStringAsync("/api/Discount");
-            var lstdis = JsonConvert.DeserializeObject<List<Discount>>(data);
+            var lstdis = JsonConvert.DeserializeObject<List<DiscountEntity>>(data);
             if (trangThai != null)
             {
                 lstdis = lstdis.Where(c => c.StatusVoucher == trangThai).OrderByDescending(c => c.DateStart).ToList();
@@ -90,13 +90,13 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var datajson = await _httpClient.GetStringAsync($"api/Discount/getById/{id}");
-            var obj = JsonConvert.DeserializeObject<Discount>(datajson);
+            var obj = JsonConvert.DeserializeObject<DiscountEntity>(datajson);
             return View(obj);
         }
         // GET: DiscountController/Details/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Discount obj)
+        public async Task<IActionResult> Edit(Guid id, DiscountEntity obj)
         {
             var jsonData = JsonConvert.SerializeObject(obj);
 

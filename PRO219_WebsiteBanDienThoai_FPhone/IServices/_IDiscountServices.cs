@@ -7,7 +7,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.IServices
     {
         Task<bool> DeleteVoucherWithList(List<string> Id);
         Task<bool> RestoreVoucherWithList(List<string> Id);
-        Task<Discount> GetVoucherByMa(string ma);
+        Task<DiscountEntity> GetVoucherByMa(string ma);
         Task<DiscountDTO> GetVoucherDTOById(string id);
         Task<bool> UpdateVoucherAfterUseIt(string idVoucher, string IdNguoiDung);
         Task<bool> UpdateVoucherSoluong(string idVoucher);

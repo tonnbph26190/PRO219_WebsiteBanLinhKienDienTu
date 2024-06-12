@@ -9,9 +9,9 @@ namespace AppData.IRepositories
 {
     public interface IRanksRepositories
     {
-        Task<List<Rank>> GetAll();
+        Task<List<RankEntity>> GetAll();
     
-        Task<Rank> GetById(Guid id);
-        Task<List<Rank>> GetByYear(int days);
+        Task<RankEntity> GetById(Guid id);
+        Task<List<RankEntity>> GetByYear(int days);
     }
 }

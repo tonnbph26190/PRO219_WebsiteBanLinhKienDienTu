@@ -55,11 +55,11 @@ public class AccountsController : Controller
         ViewBag.idacount = id;
         // lấy ra thông tin người dùng thông qua id
         var datajson = await _client.GetStringAsync($"api/Accounts/get-user/{id}");
-        var user = JsonConvert.DeserializeObject<Account>(datajson);
+        var user = JsonConvert.DeserializeObject<AccountEntity>(datajson);
         if (user != null)
         {
             var jsondata = await _client.GetStringAsync($"api/Address/get-address/{id}");
-            var address = JsonConvert.DeserializeObject<Address>(jsondata);
+            var address = JsonConvert.DeserializeObject<AddressEntity>(jsondata);
             // gộp địa chỉ
             if (address != null)
                 ViewBag.Address = address.HomeAddress + ", " + address.District + ", " + address.City + ", " +
@@ -335,7 +335,7 @@ public class AccountsController : Controller
             {
                 foreach (var item in product)
                 {
-                    CartDetails cartDetails = new CartDetails();
+                    CartDetailsEntity cartDetails = new CartDetailsEntity();
                     cartDetails.Id = new Guid();
                     cartDetails.IdPhoneDetaild = item.phoneDetaild.Id;
                     cartDetails.IdAccount = Guid.Parse(userId);
@@ -347,13 +347,13 @@ public class AccountsController : Controller
             else
 
             {
-                Cart cart = new Cart();
+                CartEntity cart = new CartEntity();
                 cart.IdAccount = Guid.Parse(userId);
                 _context.Carts.Add(cart);
                 _context.SaveChanges();
                 foreach (var item in product)
                 {
-                    CartDetails cartDetails = new CartDetails();
+                    CartDetailsEntity cartDetails = new CartDetailsEntity();
                     cartDetails.Id = new Guid();
                     cartDetails.IdPhoneDetaild = item.phoneDetaild.Id;
                     cartDetails.IdAccount = Guid.Parse(userId);
@@ -431,7 +431,7 @@ public class AccountsController : Controller
                 }
                 else
                 {
-                    CartDetails cartDetails = new CartDetails();
+                    CartDetailsEntity cartDetails = new CartDetailsEntity();
                     cartDetails.Id = new Guid();
                     cartDetails.IdPhoneDetaild = id;
                     cartDetails.IdAccount = Guid.Parse(userId);
@@ -454,11 +454,11 @@ public class AccountsController : Controller
                 }
                 else
                 {
-                    Cart cart = new Cart();
+                    CartEntity cart = new CartEntity();
                     cart.IdAccount = Guid.Parse(userId);
                     _context.Carts.Add(cart);
                     _context.SaveChanges();
-                    CartDetails cartDetails = new CartDetails();
+                    CartDetailsEntity cartDetails = new CartDetailsEntity();
                     cartDetails.Id = new Guid();
                     cartDetails.IdPhoneDetaild = id;
                     cartDetails.IdAccount = Guid.Parse(userId);
@@ -505,7 +505,7 @@ public class AccountsController : Controller
             currentBillNumber = _context.Bill.Count() + 1;
         }
         var billCode = "HD" + currentBillNumber.ToString("D5");
-        Bill bill = new Bill();
+        BillEntity bill = new BillEntity();
         bill.Id = Guid.NewGuid();
         bill.Address = $"{order.Address},{order.Province},{order.District},{order.Ward}";
         bill.Name = order.Name;
@@ -533,13 +533,13 @@ public class AccountsController : Controller
         Guid idhd = bill.Id;
 
         var product = _context.CartDetails.Where(a => a.IdAccount == Guid.Parse(userId)).ToList();
-        List<BillDetails> Listbill = new List<BillDetails>();
+        List<BillDetailsEntity> Listbill = new List<BillDetailsEntity>();
 
 
         foreach (var item in product)
         {
                 // Thêm sản phẩm điện thoại vào bill detail
-                BillDetails billDetail = new BillDetails();
+                BillDetailsEntity billDetail = new BillDetailsEntity();
                 billDetail.IdBill = idhd;
                 billDetail.Id = Guid.NewGuid();
                 billDetail.IdPhoneDetail = item.IdPhoneDetaild;
@@ -574,7 +574,7 @@ public class AccountsController : Controller
             currentBillNumber = _context.Bill.Count() + 1;
         }
         var billCode = "HD" + currentBillNumber.ToString("D5");
-        Bill bill = new Bill();
+        BillEntity bill = new BillEntity();
         bill.Id = Guid.NewGuid();
         bill.Address = "Nhận trực tiếp tại cửa hàng ";
         bill.Name = order.Name;
@@ -602,13 +602,13 @@ public class AccountsController : Controller
         Guid idhd = bill.Id;
 
         var product = _context.CartDetails.Where(a => a.IdAccount == Guid.Parse(userId)).ToList();
-        List<BillDetails> Listbill = new List<BillDetails>();
+        List<BillDetailsEntity> Listbill = new List<BillDetailsEntity>();
 
 
         foreach (var item in product)
         {
             // Thêm sản phẩm điện thoại vào bill detail
-            BillDetails billDetail = new BillDetails();
+            BillDetailsEntity billDetail = new BillDetailsEntity();
             billDetail.IdBill = idhd;
             billDetail.Id = Guid.NewGuid();
             billDetail.IdPhoneDetail = item.IdPhoneDetaild;

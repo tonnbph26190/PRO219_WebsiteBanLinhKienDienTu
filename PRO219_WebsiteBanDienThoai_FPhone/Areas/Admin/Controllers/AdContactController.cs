@@ -20,13 +20,13 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public IActionResult Index()
         {
             ContactViewModel obj = new ContactViewModel();
-            List<Contact> lst = new List<Contact>();
+            List<ContactEntity> lst = new List<ContactEntity>();
             obj.SearchData.Status = 0;
             lst = _service.ListContact(obj.SearchData, obj.ListOptions);
 
             for (int i = 0; i < lst.Count; i++)
             {
-                var item = new Contact();
+                var item = new ContactEntity();
                 BeanUtils.CopyAllPropertySameName(lst[i], item);
                 obj.Records.Add(item);
             }
@@ -35,7 +35,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
 
         public IActionResult ChangeStatus(Guid id)
         {
-            var contact = new Contact();
+            var contact = new ContactEntity();
             var data = _service.Details(id);
             if (data!=null)
             {
@@ -50,13 +50,13 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public IActionResult ContactHis(Guid id)
         {
             ContactViewModel obj = new ContactViewModel();
-            List<Contact> lst = new List<Contact>();
+            List<ContactEntity> lst = new List<ContactEntity>();
             obj.SearchData.Status = 1;
             lst = _service.ListContact(obj.SearchData, obj.ListOptions);
 
             for (int i = 0; i < lst.Count; i++)
             {
-                var item = new Contact();
+                var item = new ContactEntity();
                 BeanUtils.CopyAllPropertySameName(lst[i], item);
                 obj.Records.Add(item);
             }

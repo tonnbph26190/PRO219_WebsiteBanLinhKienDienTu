@@ -36,7 +36,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
       
@@ -56,7 +56,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             else
             {
 
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public  ActionResult delete(Guid id)
@@ -86,7 +86,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public async Task<IActionResult> Danggiaoview(int? pageNumber, int pageSize = 10, string? search = "")
@@ -104,7 +104,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public async Task<IActionResult> Dagiaoview(int? pageNumber, int pageSize = 10, string? search = "")
@@ -123,7 +123,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public async Task<IActionResult> giaothatbaiview(int? pageNumber, int pageSize = 10, string? search = "")
@@ -141,7 +141,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public async Task<IActionResult> xoaview(int? pageNumber, int pageSize = 10, string? search = "")
@@ -159,7 +159,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Bill>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<BillEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
         public ActionResult Detail(Guid id)
@@ -196,7 +196,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         // status = 0 cho xác nhận, 1 da xác nhận 
         public ActionResult Status(Guid id)
         {
-            Bill bill = _context.Bill.Find(id);
+            BillEntity bill = _context.Bill.Find(id);
             var billdetail = _context.BillDetails.FirstOrDefault(p => p.IdBill == id);
             if(billdetail.Imei == null)
             {
@@ -248,7 +248,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             var a = _context.BillDetails.FirstOrDefault(p => p.IdBill == id);
             if(a.Imei == null)
             {
-                Bill bill = _context.Bill.Find(id);
+                BillEntity bill = _context.Bill.Find(id);
                 bill.Note = statusInput1;
                 bill.Status = 4;
 
@@ -268,7 +268,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         // đang giao hàng
         public ActionResult DangGiao(Guid id)
         {
-            Bill bill = _context.Bill.Find(id);
+            BillEntity bill = _context.Bill.Find(id);
             if (bill.Status == 0)
             {
                 //Loii
@@ -285,7 +285,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         // thay đổi trạng thái thành đã giao
         public ActionResult Dagiao(Guid id)
         {
-            Bill bill = _context.Bill.Find(id);
+            BillEntity bill = _context.Bill.Find(id);
             if (bill.Status == 0)
             {
                 // loi
@@ -386,7 +386,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<WarrantyCard>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<WarrantyCardEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
 
@@ -406,7 +406,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<WarrantyCard>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<WarrantyCardEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
 
         }
@@ -427,7 +427,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<WarrantyCard>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<WarrantyCardEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
 
         }

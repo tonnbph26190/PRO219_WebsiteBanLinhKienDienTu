@@ -12,7 +12,7 @@ namespace AppData.Repositories
         {
             _dbContetx = new FPhoneDbContext();
         }
-        public async Task<Sales> Add(Sales obj)
+        public async Task<SalesEntity> Add(SalesEntity obj)
         {
             obj.Id = new Guid();
             await _dbContetx.Sales.AddAsync(obj);
@@ -27,12 +27,12 @@ namespace AppData.Repositories
             await _dbContetx.SaveChangesAsync();
         }
 
-        public async Task<List<Sales>> GetAll()
+        public async Task<List<SalesEntity>> GetAll()
         {
             return await _dbContetx.Sales.ToListAsync();
         }
 
-        public async Task<Sales> Update(Sales obj)
+        public async Task<SalesEntity> Update(SalesEntity obj)
         {
             var a = await _dbContetx.Sales.FindAsync(obj.Id);
             a.Status = obj.Status;

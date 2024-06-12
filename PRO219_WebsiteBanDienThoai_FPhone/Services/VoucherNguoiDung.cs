@@ -11,7 +11,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Services
         private readonly HttpClient _httpClient;
         FPhoneDbContext DbContextModel = new FPhoneDbContext();
         DbSet<VoucherNguoiDung> voucherNguoiDung;
-        DbSet<Discount> voucher;
+        DbSet<DiscountEntity> voucher;
         public VoucherNguoiDung(HttpClient httpClient)
         {
             _httpClient = httpClient;

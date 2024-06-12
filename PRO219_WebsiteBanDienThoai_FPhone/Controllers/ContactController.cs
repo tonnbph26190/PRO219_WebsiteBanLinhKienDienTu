@@ -23,7 +23,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Controllers
         [HttpPost]
         public IActionResult Index(ContactViewModel obj)
         {
-            var data = new Contact();
+            var data = new ContactEntity();
             data.CODE = Utility.RandomString(8);
             data.FullName = obj.FullName;
             data.PhoneNumber = obj.PhoneNumber;

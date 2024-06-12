@@ -20,7 +20,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var datajson = await _httpClient.GetStringAsync("api/Sale/get");
-            var obj = JsonConvert.DeserializeObject<List<Sales>>(datajson);
+            var obj = JsonConvert.DeserializeObject<List<SalesEntity>>(datajson);
             return View(obj);
         }
         public IActionResult Create()
@@ -29,7 +29,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Sales obj)
+        public async Task<IActionResult> Create(SalesEntity obj)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var datajson = await _httpClient.GetStringAsync($"api/Sale/getById/{id}");
-            var obj = JsonConvert.DeserializeObject<Sales>(datajson);
+            var obj = JsonConvert.DeserializeObject<SalesEntity>(datajson);
             return View(obj);
         }
 

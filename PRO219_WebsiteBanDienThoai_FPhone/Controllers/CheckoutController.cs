@@ -80,7 +80,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Controllers
         public IActionResult Index(CheckOutViewModel model)
         {
             // lấy data từ model gán vào bill
-            model.Bill = new Bill()
+            model.Bill = new BillEntity()
             {
                 Id = Guid.NewGuid(),
                 Address = model.DetailedAddress + ", " + model.Ward + "/" + model.District + "/" + model.Province,

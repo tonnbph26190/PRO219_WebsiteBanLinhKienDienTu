@@ -26,7 +26,7 @@ namespace PRO219_WebsiteBanDienThoai_FPhone.Areas.Admin.Controllers
             }
             else
             {
-                return View(new List<Review>().ToPagedList(pageNumber ?? 1, pageSize));
+                return View(new List<ReviewEntity>().ToPagedList(pageNumber ?? 1, pageSize));
             }
         }
 

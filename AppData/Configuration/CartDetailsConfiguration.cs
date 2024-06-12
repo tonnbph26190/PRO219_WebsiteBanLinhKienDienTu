@@ -3,15 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace AppData.Configuration
 {
-    public class CartDetailsConfiguration : IEntityTypeConfiguration<CartDetails>
+    public class CartDetailsConfiguration : IEntityTypeConfiguration<CartDetailsEntity>
     {
-        public void Configure(EntityTypeBuilder<CartDetails> builder)
+        public void Configure(EntityTypeBuilder<CartDetailsEntity> builder)
         {
             builder.HasKey(p => p.Id);
 
-            builder.HasOne(p => p.PhoneDetailds).WithMany().HasForeignKey(p => p.IdPhoneDetaild);
+            builder.HasOne(cd => cd.Carts)
+                .WithMany(c => c.CartDetails)
+                .HasForeignKey(cd => cd.CartId);
 
-            builder.HasOne(p => p.Carts).WithMany().HasForeignKey(p => p.IdAccount);
         }
     }
 }

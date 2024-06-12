@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AppData.Configuration
 {
-    public class ReviewConfigurationcs : IEntityTypeConfiguration<Review>
+    public class ReviewConfigurationcs : IEntityTypeConfiguration<ReviewEntity>
     {
-        public void Configure(EntityTypeBuilder<Review> builder)
+        public void Configure(EntityTypeBuilder<ReviewEntity> builder)
         {
             builder.HasKey(p => p.Id);
         }
